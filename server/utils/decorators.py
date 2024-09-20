@@ -1,27 +1,15 @@
-# Non-specific imports
-import os
 from functools import wraps
-from dotenv import load_dotenv
-
-# FastAPI imports
 from fastapi import Request, HTTPException
-
-# Asynchronous PyMongo imports
 from motor.motor_asyncio import AsyncIOMotorClient
-
-# JWT imports
 from jwt import decode, ExpiredSignatureError, InvalidTokenError
+from config import LOCAL, MONGO_URI_LOCAL, MONGO_DB_LOCAL, MONGO_URI, MONGO_DB, SECRET_KEY
 
-load_dotenv()
-
-local = False
-
-if local:
-    client = AsyncIOMotorClient(os.getenv("MONGO_URI_LOCAL"))
-    database = client[os.getenv("MONGO_DB_LOCAL")]
+if LOCAL:
+    client = AsyncIOMotorClient(MONGO_URI_LOCAL)
+    database = client[MONGO_DB_LOCAL]
 else:
-    client = AsyncIOMotorClient(os.getenv("MONGO_URI"))
-    database = client[os.getenv("MONGO_DB")]
+    client = AsyncIOMotorClient(MONGO_URI)
+    database = client[MONGO_DB]
 
 user_collection = database["users"]
 
@@ -36,7 +24,7 @@ def token_required(func):
             # Remove "Bearer " prefix
             token = token.split(" ")[1]
             # Decode the token
-            data = decode(token, os.getenv('APP_SECRET_KEY'), algorithms=["HS256"])
+            data = decode(token, SECRET_KEY, algorithms=["HS256"])
             current_user = await user_collection.find_one({'email': data['email']})
             if not current_user:
                 raise HTTPException(status_code=401, detail="User not found!")

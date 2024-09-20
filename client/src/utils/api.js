@@ -10,3 +10,14 @@ export const google_auth = async (code) => {
 	});
 	return response;
 };
+
+export const get_user = async () => {
+    const response = await fetch(`${apiUrl}/user`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
+    return response;
+};

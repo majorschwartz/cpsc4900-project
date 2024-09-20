@@ -83,9 +83,8 @@ async def google_auth(request: GoogleLoginRequest):
                 "first_name": first_name if first_name is not None else "human",
                 "last_name": last_name if last_name is not None else "being",
                 "email": email,
-                "password": None,
                 "created_at": datetime.datetime.now(datetime.UTC),
-                "is_google": True,
+                "onboarding_complete": False,
             }
 
             await user_collection.insert_one(user_obj)
@@ -116,7 +115,7 @@ async def get_user(request: Request):
             "last_name": current_user["last_name"],
             "email": current_user["email"],
             "created_at": str(current_user["created_at"]),
-            "is_google": current_user["is_google"],
+            "onboarding_complete": current_user["onboarding_complete"],
         }
         return JSONResponse(content=user_data, status_code=200)
     raise HTTPException(status_code=404, detail="User not found.")
