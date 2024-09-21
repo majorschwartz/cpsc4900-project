@@ -15,3 +15,6 @@ else:
     database = client[MONGO_DB]
 
 user_collection = database["users"]
+preferences_collection = database["preferences"]
+equipment_collection = database["equipment"]
+recipe_collection = database["recipes"]

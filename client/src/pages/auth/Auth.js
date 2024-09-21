@@ -1,7 +1,7 @@
 import "./auth.css";
 import { useGoogleLogin } from "@react-oauth/google";
-import { google_auth } from "../../utils/api";
-import { useUserContext } from "../../providers/UserContext";
+import { google_auth } from "apis/auth";
+import { useUserContext } from "providers/UserContext";
 import { useNavigate } from "react-router-dom";
 
 const Auth = () => {

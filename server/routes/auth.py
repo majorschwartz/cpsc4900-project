@@ -1,14 +1,13 @@
 from pydantic import BaseModel
-from typing import Optional
-from fastapi import HTTPException, APIRouter, Request
+from fastapi import HTTPException, APIRouter
 from fastapi.responses import JSONResponse
 import requests
 from starlette.concurrency import run_in_threadpool
 from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
-from utils.decorators import token_required
 from config import SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ORIGIN_ENDPOINT
-from database.database import user_collection
+from database.db_find import find_user_by_email
+from database.db_insert import insert_user
 import datetime
 import jwt
 
@@ -76,7 +75,7 @@ async def google_auth(request: GoogleLoginRequest):
         except:
             pass
 
-        user = await user_collection.find_one({"email": email})
+        user = await find_user_by_email(email)
 
         if not user:
             user_obj = {
@@ -87,7 +86,7 @@ async def google_auth(request: GoogleLoginRequest):
                 "onboarding_complete": False,
             }
 
-            await user_collection.insert_one(user_obj)
+            await insert_user(user_obj)
 
         token = jwt.encode(
             {
@@ -102,20 +101,3 @@ async def google_auth(request: GoogleLoginRequest):
     except Exception as e:
         print(f"Error during Google login: {str(e)}\n")
         raise HTTPException(status_code=401, detail="Failed to log in with Google.")
-
-# Get user route
-@router.get("/user")
-@token_required
-async def get_user(request: Request):
-    current_user = request.state.current_user
-    if current_user:
-        user_data = {
-            "uid": str(current_user["_id"]),
-            "first_name": current_user["first_name"],
-            "last_name": current_user["last_name"],
-            "email": current_user["email"],
-            "created_at": str(current_user["created_at"]),
-            "onboarding_complete": current_user["onboarding_complete"],
-        }
-        return JSONResponse(content=user_data, status_code=200)
-    raise HTTPException(status_code=404, detail="User not found.")

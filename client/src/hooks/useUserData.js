@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { useUserContext } from "providers/UserContext";
-import { get_user } from "utils/api";
+import { get_user } from "apis/user";
 
 const useUserData = () => {
-    const { isLoggedIn } = useUserContext();
     const [uid, setUid] = useState(null);
 
     const [firstName, setFirstName] = useState("");
@@ -17,7 +15,7 @@ const useUserData = () => {
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const getUserData = async () => {
+        const fetchData = async () => {
             setLoading(true);
             try {
                 const response = await get_user();
@@ -35,12 +33,9 @@ const useUserData = () => {
             } finally {
                 setLoading(false);
             }
-        };
-
-        if (isLoggedIn) {
-            getUserData();
         }
-    }, [isLoggedIn]);
+        fetchData();
+    }, []);
 
     return {
         uid,
