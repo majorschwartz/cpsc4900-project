@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
+import SelectEquip from "./SelectEquip";
+import SelectPrefs from "./SelectPrefs";
 import useUserPrefs from "hooks/useUserPrefs";
 import useUserEquip from "hooks/useUserEquip";
-import { set_preferences } from "apis/preferences";
-import { set_equipment } from "apis/equipment";
 
 const Onboarding = () => {
 	const [stage, setStage] = useState(0);
 	const { preferences, loading: loadingPrefs } = useUserPrefs();
 	const { equipment, loading: loadingEquip } = useUserEquip();
-	const [newPreferences, setNewPreferences] = useState([]);
-	const [newEquipment, setNewEquipment] = useState([]);
 
 	useEffect(() => {
 		if (loadingPrefs || loadingEquip) {
@@ -25,9 +23,8 @@ const Onboarding = () => {
 	
 	return (
 		<div>
-			Onboarding
-			{loadingPrefs && loadingEquip && <div>Loading...</div>}
-			{preferences && <div>Preferences: {preferences.join(", ")}</div>}
+			{stage === 0 && <SelectPrefs />}
+			{stage === 1 && <SelectEquip />}
 		</div>
 	);
 }

@@ -20,6 +20,7 @@ export const set_preferences = async (preferences) => {
         },
         body: JSON.stringify({preferences}),
     });
+    return response;
 };
 
 export const update_preferences = async (preferences) => {
@@ -31,4 +32,5 @@ export const update_preferences = async (preferences) => {
         },
         body: JSON.stringify({preferences}),
     });
+    return response;
 };

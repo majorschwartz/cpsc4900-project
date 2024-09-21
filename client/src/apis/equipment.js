@@ -20,6 +20,7 @@ export const set_equipment = async (equipment) => {
         },
         body: JSON.stringify(equipment),
     });
+    return response;
 };
 
 export const update_equipment = async (equipment) => {
@@ -31,4 +32,5 @@ export const update_equipment = async (equipment) => {
         },
         body: JSON.stringify(equipment),
     });
+    return response;
 };
