@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { set_equipment } from "apis/equipment";
-import TextSelectionDetector from "components/TextSelectionDetector";
 
 const EquipmentSection = ({ title, items, selectedItems, onItemToggle }) => (
 	<div className="mb-8">
@@ -112,7 +111,6 @@ const SelectEquip = () => {
 			>
 				Save Equipment
 			</button>
-			<TextSelectionDetector />
 		</div>
 	);
 };
