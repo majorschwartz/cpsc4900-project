@@ -7,7 +7,7 @@ import Onboarding from "./pages/onboarding/Onboarding";
 
 function App() {
 	return (
-		<div className="App">
+		<div className="flex flex-col h-screen p-4">
 			<Router>
 				<Routes>
 					<Route path="/auth" element={<Auth />} />

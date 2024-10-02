@@ -36,8 +36,8 @@ const Auth = () => {
     });
 
 	return (
-		<div className="auth-page">
-			<button onClick={googleLogin}>Continue with Google</button>
+		<div className="flex flex-col items-center justify-center h-full">
+			<button onClick={googleLogin} className="bg-blue-500 text-white p-2 rounded-md">Continue with Google</button>
 		</div>
 	);
 }
