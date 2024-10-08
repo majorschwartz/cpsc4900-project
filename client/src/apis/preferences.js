@@ -18,7 +18,7 @@ export const set_preferences = async (preferences) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({preferences}),
+        body: JSON.stringify({preferences: preferences}),
     });
     return response;
 };
@@ -30,7 +30,7 @@ export const update_preferences = async (preferences) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({preferences}),
+        body: JSON.stringify({preferences: preferences}),
     });
     return response;
 };

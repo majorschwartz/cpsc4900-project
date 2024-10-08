@@ -11,7 +11,7 @@ router = APIRouter()
 
 
 class Preferences(BaseModel):
-	preferences: list
+	preferences: dict
 
 
 @router.post("/preferences")

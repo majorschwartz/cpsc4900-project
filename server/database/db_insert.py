@@ -6,11 +6,11 @@ async def insert_user(user: dict):
     return result.inserted_id
     
 async def insert_preferences(user_id: str, preferences: dict):
-    await preferences_collection.insert_one({"user_id": user_id, **preferences})
+    await preferences_collection.insert_one({"user_id": user_id, "preferences": preferences})
 
 async def insert_equipment(user_id: str, equipment: dict):
-    await equipment_collection.insert_one({"user_id": user_id, **equipment})
+    await equipment_collection.insert_one({"user_id": user_id, "equipment": equipment})
 
 async def insert_recipe(user_id: str, recipe: dict):
-    await recipe_collection.insert_one({"user_id": user_id, **recipe})
+    await recipe_collection.insert_one({"user_id": user_id, "recipe": recipe})
     
