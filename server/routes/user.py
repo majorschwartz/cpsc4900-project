@@ -12,7 +12,6 @@ async def get_user(request: Request):
     current_user = request.state.current_user
     if current_user:
         user_data = {
-            "uid": str(current_user["_id"]),
             "first_name": current_user["first_name"],
             "last_name": current_user["last_name"],
             "email": current_user["email"],

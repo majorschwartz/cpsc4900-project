@@ -2,11 +2,7 @@ import { useState, useEffect } from "react";
 import { get_preferences } from "apis/preferences";
 
 const useUserPrefs = () => {
-    const [preferences, setPreferences] = useState({
-        "likes": [],
-        "dislikes": [],
-        "allergies": []
-    });
+    const [preferences, setPreferences] = useState(null);
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);

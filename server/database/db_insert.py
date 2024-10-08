@@ -2,10 +2,11 @@ from database.database import user_collection, preferences_collection, equipment
 
 
 async def insert_user(user: dict):
-    await user_collection.insert_one(user)
+    result = await user_collection.insert_one(user)
+    return result.inserted_id
     
-async def insert_preferences(user_id: str, preferences: list):
-    await preferences_collection.insert_one({"user_id": user_id, "preferences": preferences})
+async def insert_preferences(user_id: str, preferences: dict):
+    await preferences_collection.insert_one({"user_id": user_id, **preferences})
 
 async def insert_equipment(user_id: str, equipment: dict):
     await equipment_collection.insert_one({"user_id": user_id, **equipment})

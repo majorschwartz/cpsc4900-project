@@ -7,7 +7,7 @@ from google.oauth2 import id_token
 from google.auth.transport import requests as google_requests
 from config import SECRET_KEY, GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, ORIGIN_ENDPOINT
 from database.db_find import find_user_by_email
-from database.db_insert import insert_user
+from database.db_insert import insert_user, insert_preferences, insert_equipment
 import datetime
 import jwt
 
@@ -86,7 +86,8 @@ async def google_auth(request: GoogleLoginRequest):
                 "onboarding_complete": False,
             }
 
-            await insert_user(user_obj)
+            user_id = await insert_user(user_obj)
+            print(f"User inserted: {user_id}\n")
 
         token = jwt.encode(
             {

@@ -33,6 +33,7 @@ async def create_preferences(request: Request, preferences: Preferences):
 async def get_preferences(request: Request):
 	user_id = request.state.current_user["_id"]
 	db_preferences = await find_preferences_by_user_id(user_id)
+
 	if db_preferences:
 		db_preferences = await convertObjectIds(db_preferences)
 		return JSONResponse(content=db_preferences, status_code=200)

@@ -3,8 +3,10 @@ import SelectEquip from "./SelectEquip";
 import SelectPrefs from "./SelectPrefs";
 import useUserPrefs from "hooks/useUserPrefs";
 import useUserEquip from "hooks/useUserEquip";
+import { useNavigate } from "react-router-dom";
 
 const Onboarding = () => {
+	const navigate = useNavigate();
 	const [stage, setStage] = useState(0);
 	const { preferences, loading: loadingPrefs } = useUserPrefs();
 	const { equipment, loading: loadingEquip } = useUserEquip();
@@ -12,14 +14,16 @@ const Onboarding = () => {
 	useEffect(() => {
 		if (loadingPrefs || loadingEquip) {
 			return;
+		} else {
+			if (preferences && equipment) {
+				navigate("/home");
+			} else if (!preferences) {
+				setStage(0);
+			} else if (!equipment) {
+				setStage(1);
+			}
 		}
-		if (preferences !== null && equipment === null) {
-			setStage(1);
-		}
-		if (equipment !== null && preferences !== null) {
-			setStage(2);
-		}
-	}, [preferences, equipment, loadingPrefs, loadingEquip]);
+	}, [preferences, equipment, loadingPrefs, loadingEquip, navigate]);
 	
 	return (
 		<div>
