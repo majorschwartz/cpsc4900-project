@@ -1,0 +1,119 @@
+﻿..
+
+
+
+
+{
+  "model": "gpt-4",
+  "input_structure": {
+    "equipment": {
+      "type": "array",
+      "description": "List of kitchen equipment the user has available",
+      "example": ["oven", "blender", "microwave"]
+    },
+    "ingredients": {
+      "type": "array",
+      "description": "List of ingredients the user has on hand",
+      "example": ["chicken breast", "bell peppers", "onions", "garlic", "olive oil", "salt", "pepper"]
+    },
+    "dietary_preferences": {
+      "type": "array",
+      "description": "List of dietary preferences or restrictions",
+      "example": ["no dairy", "low-carb", "gluten-free", "vegetarian"]
+    },
+    "meal_time_preference": {
+      "type": "string",
+      "description": "Preferred time to prepare meals (e.g., under 30 minutes, 1 hour)",
+      "example": "under 30 minutes"
+    },
+    "cuisine_preferences": {
+      "type": "array",
+      "description": "User's preferred cuisines or flavor profiles",
+      "example": ["Thai", "Italian", "Mexican"]
+    },
+    "spice_level": {
+      "type": "string",
+      "description": "Spice level preference(e.g., no spice, mild, hot,)",
+      "Example": “medium” 
+    },
+    "meal_type": {
+      "type": "array",
+      "description": "Type of meal the user wants (e.g., breakfast, lunch, dinner, dessert)",
+      "example": [“breakfast”, “lunch”, “snack”, “dinner”, “dessert”][a]
+    },
+    "serving_size": {
+      "type": "integer",
+      "description": "Number of servings the user wants to prepare",
+      "example": 4
+    },
+    "allergies": {
+      "type": "array",
+      "description": "List of known allergies",
+      "example": ["nuts", "gluten"]
+    },
+    "difficulty_level": {
+      "type": "string",
+      "description": "Desired difficulty level of the recipe (e.g., easy, intermediate, advanced)",
+      "example": "easy"
+    },
+    "special_equipment_needed": {
+      "type": "boolean",
+      "description": "Whether the recipe can only be made with special equipment not listed by the user",
+      "default": false
+    }
+  },
+  "output_structure": {
+    "dish_suggestions": {
+      "type": "array",
+      "description": "A list of dishes that match the user's input",
+      "example": ["Spicy Chicken Stir-Fry", "Garlic Roasted Chicken", "Bell Pepper Stuffed Chicken"]
+    },
+    "recipes": {
+      "type": "array",
+      "description": "The detailed recipe for each dish, including ingredients, step-by-step instructions, and estimated preparation time",
+      "example": [
+        {
+          "dish_name": "Spicy Chicken Stir-Fry",
+          "ingredients": ["chicken breast", "bell peppers", "garlic", "onions", "olive oil", "salt", "pepper"],
+          "steps": [
+            "Step 1: Heat olive oil in a pan.",
+            "Step 2: Add chicken breast and cook until browned.",
+            "Step 3: Add garlic, bell peppers, and onions, cook until tender.",
+            "Step 4: Season with salt, pepper, and chili flakes for spiciness.",
+            "Step 5: Serve hot."
+          ],
+          "prep_time": "20 minutes",
+          "servings": 4,
+          "difficulty": "easy"
+          "spice_level": "medium"
+        }
+      ]
+    }
+  },
+  "constraints": {
+    "max_tokens": 1000,
+    "temperature": 0.7,
+    "top_p": 1,
+    "frequency_penalty": 0,
+    "presence_penalty": 0
+  },
+  "conversation_flow": [
+    {
+      "role": "system",
+      "content": "You are a helpful assistant that provides recipe suggestions based on the user's available kitchen equipment, ingredients, and preferences."
+    },
+    {
+      "role": "user",
+      "content": "I have a blender and an oven. My ingredients include chicken breast, bell peppers, and onions. I prefer meals under 30 minutes, and I like spicy food. No dairy, please."
+    },
+    {
+      "role": "assistant",
+      "content": "Here are a few dishes you can prepare: 1) Spicy Chicken Stir-Fry, 2) Bell Pepper Chicken Bake. Would you like the recipe for either of these?"
+    }
+  ]
+}
+
+
+
+
+[a]changed this from a string to array. If that looks incorrect than delete it!
