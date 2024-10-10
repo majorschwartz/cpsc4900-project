@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { set_preferences } from "apis/preferences";
 import prefList from "./pref_list";
 
-const SelectPrefs = () => {
+const SelectPrefs = ({ stepStage }) => {
 	const [selectedPreferences, setSelectedPreferences] = useState({});
 	const [userAddedItems, setUserAddedItems] = useState({});
 	const [newItemInputs, setNewItemInputs] = useState({});
@@ -36,6 +36,7 @@ const SelectPrefs = () => {
 			];
 		});
 		set_preferences(combinedPreferences);
+		stepStage();
 	};
 
 	const handleInputChange = (category, value) => {

@@ -11,6 +11,10 @@ const Onboarding = () => {
 	const { preferences, loading: loadingPrefs } = useUserPrefs();
 	const { equipment, loading: loadingEquip } = useUserEquip();
 
+	const stepStage = () => {
+		setStage(stage + 1);
+	}
+
 	useEffect(() => {
 		if (loadingPrefs || loadingEquip) {
 			return;
@@ -27,8 +31,8 @@ const Onboarding = () => {
 	
 	return (
 		<div>
-			{stage === 0 && <SelectPrefs />}
-			{stage === 1 && <SelectEquip />}
+			{stage === 0 && <SelectPrefs stepStage={stepStage} />}
+			{stage === 1 && <SelectEquip stepStage={stepStage} />}
 		</div>
 	);
 }
