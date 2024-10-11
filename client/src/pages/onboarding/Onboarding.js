@@ -13,7 +13,7 @@ const Onboarding = () => {
 
 	const stepStage = () => {
 		setStage(stage + 1);
-	}
+	};
 
 	useEffect(() => {
 		if (loadingPrefs || loadingEquip) {
@@ -28,13 +28,13 @@ const Onboarding = () => {
 			}
 		}
 	}, [preferences, equipment, loadingPrefs, loadingEquip, navigate]);
-	
+
 	return (
 		<div>
 			{stage === 0 && <SelectPrefs stepStage={stepStage} />}
 			{stage === 1 && <SelectEquip stepStage={stepStage} />}
 		</div>
 	);
-}
+};
 
 export default Onboarding;

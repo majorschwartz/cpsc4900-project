@@ -43,7 +43,9 @@ const SelectEquip = () => {
 									alt={item.name}
 									className="w-full h-32 object-contain mb-2"
 								/>
-								<p className="text-center text-sm">{item.name}</p>
+								<p className="text-center text-sm">
+									{item.name}
+								</p>
 							</div>
 						))}
 					</div>
