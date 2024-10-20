@@ -1,9 +1,3 @@
-// Common food items that people have.
-
-// Add different sections of food
-// For each selection, allow an "add another"
-// And a universal "add other" at the end
-
 const foodList = {
     "Fruits": {
         description: "Select the fruits you usually have at home.",
@@ -67,6 +61,7 @@ const foodList = {
             { name: "Mayonnaise", imageURL: "assets/food/condiments/mayonnaise.png" },
             { name: "Soy Sauce", imageURL: "assets/food/condiments/soy_sauce.png" },
             { name: "Hot Sauce", imageURL: "assets/food/condiments/hot_sauce.png" },
+            { name: "BBQ Sauce", imageURL: "assets/food/condiments/bbq_sauce.png" },
         ]
     },
     "Spices": {
