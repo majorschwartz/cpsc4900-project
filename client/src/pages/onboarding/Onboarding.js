@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from "react";
-import SelectEquip from "./SelectEquip";
 import SelectPrefs from "./SelectPrefs";
+import SelectEquip from "./SelectEquip";
 import SelectFood from "./SelectFood";
 import useUserPrefs from "hooks/useUserPrefs";
 import useUserEquip from "hooks/useUserEquip";
-import useUserFood from "hooks/useUserInv";
+import useUserInv from "hooks/useUserInv";
 import { useNavigate } from "react-router-dom";
 
 const Onboarding = () => {
 	const navigate = useNavigate();
-	const [stage, setStage] = useState(0);
+	const [stage, setStage] = useState(-1);
 	const { preferences, loading: loadingPrefs } = useUserPrefs();
 	const { equipment, loading: loadingEquip } = useUserEquip();
-	const { food, loading: loadingFood } = useUserFood();
+	const { food, loading: loadingFood } = useUserInv();
+	
 	const stepStage = () => {
-		setStage(stage + 1);
+		if (stage !== 2) {
+			setStage(stage + 1);
+		} else {
+			navigate("/home");
+		}
 	};
 
 	useEffect(() => {
 		if (loadingPrefs || loadingEquip || loadingFood) {
 			return;
 		} else {
-			if (preferences && equipment) {
+			if (preferences && equipment && food) {
 				navigate("/home");
 			} else if (!preferences) {
 				setStage(0);
 			} else if (!equipment) {
 				setStage(1);
-			} else if (preferences && equipment) {
+			} else if (!food) {
 				setStage(2);
 			}
 		}
-	}, [preferences, equipment, loadingPrefs, loadingEquip, navigate]);
+	}, [preferences, equipment, food, loadingPrefs, loadingEquip, loadingFood, navigate]);
 
 	return (
 		<div>
+			{stage === -1 && <div>Loading...</div>}
 			{stage === 0 && <SelectPrefs stepStage={stepStage} />}
 			{stage === 1 && <SelectEquip stepStage={stepStage} />}
 			{stage === 2 && <SelectFood stepStage={stepStage} />}

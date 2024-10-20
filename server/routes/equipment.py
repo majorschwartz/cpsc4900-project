@@ -11,7 +11,6 @@ router = APIRouter()
 
 
 class Equipment(BaseModel):
-	user_id: str
 	equipment: dict
 
 

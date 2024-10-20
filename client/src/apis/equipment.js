@@ -18,7 +18,7 @@ export const set_equipment = async (equipment) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(equipment),
+        body: JSON.stringify({ equipment: equipment }),
     });
     return response;
 };
@@ -30,7 +30,7 @@ export const update_equipment = async (equipment) => {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(equipment),
+        body: JSON.stringify({ equipment: equipment }),
     });
     return response;
 };

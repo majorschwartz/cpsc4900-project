@@ -4,7 +4,7 @@ import { get_equipment } from "apis/equipment";
 const useUserEquip = () => {
     const [equipment, setEquipment] = useState(null);
 
-    const [loading, setLoading] = useState(false);
+    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
     useEffect(() => {
@@ -16,7 +16,7 @@ const useUserEquip = () => {
                     throw new Error("Failed to fetch user data.");
                 }
                 const data = await response.json();
-                setEquipment(data["equipment"]);
+                setEquipment(data);
             } catch (error) {
                 setError("Error...");
             } finally {
