@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { set_food_inventory } from "apis/inventory";
+import { set_inventory } from "apis/inventory";
 import foodList from "./food_list";
 
 const SelectFood = ({ stepStage }) => {
@@ -30,7 +30,7 @@ const SelectFood = ({ stepStage }) => {
 				...new Set([...(combinedFood[category] || []), ...items]),
 			];
 		});
-		set_food_inventory(combinedFood);
+		set_inventory(combinedFood);
 		stepStage();
 	};
 

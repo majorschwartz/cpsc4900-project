@@ -1,7 +1,7 @@
 const apiUrl = process.env.REACT_APP_API_ENDPOINT;
 
-export const get_food_inventory = async () => {
-    const response = await fetch(`${apiUrl}/food-inventory`, {
+export const get_inventory = async () => {
+    const response = await fetch(`${apiUrl}/inventory`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",
@@ -11,26 +11,26 @@ export const get_food_inventory = async () => {
     return response;
 };
 
-export const set_food_inventory = async (foodInventory) => {
-    const response = await fetch(`${apiUrl}/food-inventory`, {
+export const set_inventory = async (inventory) => {
+    const response = await fetch(`${apiUrl}/inventory`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ foodInventory }),
+        body: JSON.stringify({ inventory: inventory }),
     });
     return response;
 };
 
-export const update_food_inventory = async (foodInventory) => {
-    const response = await fetch(`${apiUrl}/food-inventory`, {
+export const update_inventory = async (inventory) => {
+    const response = await fetch(`${apiUrl}/inventory`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify({ foodInventory }),
+        body: JSON.stringify({ inventory: inventory }),
     });
     return response;
 };

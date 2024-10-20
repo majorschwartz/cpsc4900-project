@@ -1,4 +1,4 @@
-from database.database import user_collection, preferences_collection, equipment_collection, recipe_collection
+from database.database import user_collection, preferences_collection, equipment_collection, inventory_collection, recipe_collection
 
 async def find_user_by_email(email: str):
     user = await user_collection.find_one({"email": email})
@@ -15,6 +15,10 @@ async def find_preferences_by_user_id(user_id: str):
 async def find_equipment_by_user_id(user_id: str):
     result = await equipment_collection.find_one({"user_id": user_id})
     return result["equipment"] if result else None
+
+async def find_inventory_by_user_id(user_id: str):
+    result = await inventory_collection.find_one({"user_id": user_id})
+    return result["inventory"] if result else None
 
 async def find_recipes_by_user_id(user_id: str):
 	result = await recipe_collection.find_one({"user_id": user_id})

@@ -17,4 +17,5 @@ else:
 user_collection = database["users"]
 preferences_collection = database["preferences"]
 equipment_collection = database["equipment"]
+inventory_collection = database["inventory"]
 recipe_collection = database["recipes"]
