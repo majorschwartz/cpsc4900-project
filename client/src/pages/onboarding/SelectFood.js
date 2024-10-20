@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { set_food_inventory } from "apis/food_inventory"; // Assuming this API function exists
+import { set_food_inventory } from "apis/inventory";
 import foodList from "./food_list";
 
 const SelectFood = ({ stepStage }) => {

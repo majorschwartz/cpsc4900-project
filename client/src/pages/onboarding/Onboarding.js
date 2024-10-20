@@ -4,7 +4,7 @@ import SelectPrefs from "./SelectPrefs";
 import SelectFood from "./SelectFood";
 import useUserPrefs from "hooks/useUserPrefs";
 import useUserEquip from "hooks/useUserEquip";
-import useUserFood from "hooks/useUserFood";
+import useUserFood from "hooks/useUserInv";
 import { useNavigate } from "react-router-dom";
 
 const Onboarding = () => {

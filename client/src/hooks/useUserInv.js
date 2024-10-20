@@ -1,36 +1,36 @@
 import { useState, useEffect } from "react";
-import { get_recipes } from "apis/recipes";
+import { get_food_inventory } from "apis/inventory";
 
-const useUserRecipes = () => {
-    const [recipes, setRecipes] = useState(null);
+const useUserInv = () => {
+    const [food, setFood] = useState(null);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-        const fetchRecipes = async () => {
+        const fetchFood = async () => {
             setLoading(true);
             try {
-                const response = await get_recipes();
+                const response = await get_food_inventory();
                 if (!response.ok) {
-                    throw new Error("Failed to fetch user recipes.");
+                    throw new Error("Failed to fetch user food data.");
                 }
                 const data = await response.json();
-                setRecipes(data["recipes"]);
+                setFood(data["food"]);
             } catch (error) {
-                setError("Error fetching recipes");
+                setError("Error fetching food data");
             } finally {
                 setLoading(false);
             }
         }
-        fetchRecipes();
+        fetchFood();
     }, []);
 
     return {
-        recipes,
+        food,
         loading,
         error,
     };
 };
 
-export default useUserRecipes;
+export default useUserInv;
 
