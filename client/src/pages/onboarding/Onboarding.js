@@ -18,7 +18,7 @@ const Onboarding = () => {
 		if (stage !== 2) {
 			setStage(stage + 1);
 		} else {
-			navigate("/home");
+			navigate("/");
 		}
 	};
 
