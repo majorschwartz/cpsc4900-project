@@ -5,7 +5,7 @@ from utils.decorators import token_required
 from utils.helpers import convertObjectIds
 from database.db_insert import insert_inventory
 from database.db_find import find_inventory_by_user_id
-from database.db_update import update_inventory
+from database.db_update import update_inventory, update_user_onboarding
 
 router = APIRouter()
 
@@ -25,7 +25,8 @@ async def create_inventory(request: Request, inventory: Inventory):
 		return JSONResponse(content={"message": "Inventory updated successfully"}, status_code=204)
 	else:
 		await insert_inventory(user_id, inventory.inventory)
-		return JSONResponse(content={"message": "Inventory created successfully"}, status_code=201)
+		await update_user_onboarding(user_id, True)
+		return JSONResponse(content={"message": "Inventory created successfully and onboarding completed"}, status_code=201)
 
 
 @router.get("/inventory")

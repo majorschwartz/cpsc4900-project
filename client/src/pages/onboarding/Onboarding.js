@@ -26,8 +26,9 @@ const Onboarding = () => {
 		if (loadingPrefs || loadingEquip || loadingFood) {
 			return;
 		} else {
+			console.log(preferences, equipment, food);
 			if (preferences && equipment && food) {
-				navigate("/home");
+				navigate("/");
 			} else if (!preferences) {
 				setStage(0);
 			} else if (!equipment) {

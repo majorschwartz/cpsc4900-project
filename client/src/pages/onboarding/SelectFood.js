@@ -6,6 +6,8 @@ const SelectFood = ({ stepStage }) => {
 	const [selectedFood, setSelectedFood] = useState({});
 	const [userAddedItems, setUserAddedItems] = useState({});
 	const [newItemInputs, setNewItemInputs] = useState({});
+	// Add this new state
+	const [selectedAllCategories, setSelectedAllCategories] = useState({});
 
 	const toggleFood = (item, category) => {
 		setSelectedFood((prev) => {
@@ -18,6 +20,16 @@ const SelectFood = ({ stepStage }) => {
 			} else {
 				newFood[category].push(item.name);
 			}
+
+			// Add this check for all items selected
+			const allCategoryItems = foodList[category].items.map((i) => i.name);
+			const allSelected = allCategoryItems.every((i) =>
+				newFood[category].includes(i)
+			);
+			setSelectedAllCategories((prev) => ({
+				...prev,
+				[category]: allSelected,
+			}));
 
 			return newFood;
 		});
@@ -64,6 +76,21 @@ const SelectFood = ({ stepStage }) => {
 		}));
 	};
 
+	// Add this new function
+	const toggleSelectAll = (category) => {
+		const newSelectedAll = !selectedAllCategories[category];
+		setSelectedAllCategories((prev) => ({
+			...prev,
+			[category]: newSelectedAll,
+		}));
+
+		const categoryItems = foodList[category].items.map((item) => item.name);
+		setSelectedFood((prev) => ({
+			...prev,
+			[category]: newSelectedAll ? categoryItems : [],
+		}));
+	};
+
 	return (
 		<div className="container mx-auto px-4 py-8">
 			<h1 className="text-4xl font-bold mb-8 text-center">
@@ -77,6 +104,38 @@ const SelectFood = ({ stepStage }) => {
 							{category}
 						</h2>
 						<p className="text-gray-600 mb-4">{description}</p>
+
+						{/* Add this button for Select All */}
+						<button
+							onClick={() => toggleSelectAll(category)}
+							className={`flex items-center px-4 py-2 rounded-md text-sm mb-4 ${
+								selectedAllCategories[category]
+									? "bg-blue-100 border border-blue-500 text-blue-700"
+									: "bg-white border border-gray-300 text-gray-700 hover:bg-gray-50"
+							}`}
+						>
+							<div
+								className={`w-5 h-5 border-2 rounded mr-2 flex items-center justify-center select-none pointer-events-none ${
+									selectedAllCategories[category]
+										? "bg-blue-500 border-blue-500"
+										: "border-gray-400"
+								}`}
+							>
+								{selectedAllCategories[category] && (
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										viewBox="0 0 24 24"
+										fill="white"
+										width="16px"
+										height="16px"
+									>
+										<path d="M0 0h24v24H0z" fill="none" />
+										<path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+									</svg>
+								)}
+							</div>
+							Select All {category}
+						</button>
 
 						<div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
 							{items.map((item, index) => (
