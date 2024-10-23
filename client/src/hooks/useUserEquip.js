@@ -13,12 +13,12 @@ const useUserEquip = () => {
             try {
                 const response = await get_equipment();
                 if (!response.ok) {
-                    throw new Error("Failed to fetch user data.");
+                    throw new Error("Failed to fetch user equipment");
                 }
                 const data = await response.json();
                 setEquipment(data);
             } catch (error) {
-                setError("Error...");
+                setError("Error fetching user equipment");
             } finally {
                 setLoading(false);
             }

@@ -3,15 +3,20 @@ import useUserData from "hooks/useUserData";
 import { useNavigate } from "react-router-dom";
 
 const Home = () => {
-
-	const { onboardingComplete } = useUserData();
+	const { onboardingComplete, loading, error } = useUserData();
 	const navigate = useNavigate();
 
 	useEffect(() => {
-		if (!onboardingComplete) {
+		if (loading) {
+			return;
+		}
+		else if (error) {
+			console.log(error);
+		}
+		else if (!onboardingComplete) {
 			navigate("/onboarding");
 		}
-	}, [onboardingComplete, navigate]);
+	}, [onboardingComplete, loading, error, navigate]);
 
 	return (
 		<div>

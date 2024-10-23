@@ -40,3 +40,10 @@ async def get_inventory(request: Request):
 		return JSONResponse(content=db_inventory, status_code=200)
 	else:
 		return JSONResponse(content={"message": "Inventory not found"}, status_code=404)
+
+@router.post("/update-onboarding")
+@token_required
+async def update_onboarding(request: Request):
+	user_id = request.state.current_user["_id"]
+	await update_user_onboarding(user_id, True)
+	return JSONResponse(content={"message": "Onboarding updated successfully"}, status_code=200)

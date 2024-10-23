@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { update_onboarding } from "apis/inventory";
 import SelectPrefs from "./SelectPrefs";
 import SelectEquip from "./SelectEquip";
 import SelectFood from "./SelectFood";
+import useUserData from "hooks/useUserData";
 import useUserPrefs from "hooks/useUserPrefs";
 import useUserEquip from "hooks/useUserEquip";
 import useUserInv from "hooks/useUserInv";
@@ -10,9 +12,10 @@ import { useNavigate } from "react-router-dom";
 const Onboarding = () => {
 	const navigate = useNavigate();
 	const [stage, setStage] = useState(-1);
+	const { onboardingComplete, loading: loadingUser, error } = useUserData();
 	const { preferences, loading: loadingPrefs } = useUserPrefs();
 	const { equipment, loading: loadingEquip } = useUserEquip();
-	const { food, loading: loadingFood } = useUserInv();
+	const { inventory, loading: loadingInv } = useUserInv();
 	
 	const stepStage = () => {
 		if (stage !== 2) {
@@ -23,21 +26,25 @@ const Onboarding = () => {
 	};
 
 	useEffect(() => {
-		if (loadingPrefs || loadingEquip || loadingFood) {
+		if (loadingPrefs || loadingEquip || loadingInv || loadingUser) {
 			return;
+		} else if (error) {
+			console.log(error);
 		} else {
-			console.log(preferences, equipment, food);
-			if (preferences && equipment && food) {
+			if (onboardingComplete) {
+				navigate("/");
+			} else if (preferences && equipment && inventory) {
+				update_onboarding();
 				navigate("/");
 			} else if (!preferences) {
 				setStage(0);
 			} else if (!equipment) {
 				setStage(1);
-			} else if (!food) {
+			} else if (!inventory) {
 				setStage(2);
 			}
 		}
-	}, [preferences, equipment, food, loadingPrefs, loadingEquip, loadingFood, navigate]);
+	}, [preferences, equipment, inventory, loadingPrefs, loadingEquip, loadingInv, loadingUser, error, onboardingComplete, navigate]);
 
 	return (
 		<div>

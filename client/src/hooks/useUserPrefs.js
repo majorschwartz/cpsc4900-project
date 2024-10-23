@@ -13,12 +13,12 @@ const useUserPrefs = () => {
             try {
                 const response = await get_preferences();
                 if (!response.ok) {
-                    throw new Error("Failed to fetch user data.");
+                    throw new Error("Failed to fetch user preferences");
                 }
                 const data = await response.json();
                 setPreferences(data);
             } catch (error) {
-                setError("Error...");
+                setError("Error fetching user preferences");
             } finally {
                 setLoading(false);
             }

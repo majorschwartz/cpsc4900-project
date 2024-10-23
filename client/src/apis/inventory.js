@@ -35,3 +35,13 @@ export const update_inventory = async (inventory) => {
     return response;
 };
 
+export const update_onboarding = async () => {
+    const response = await fetch(`${apiUrl}/update-onboarding`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
+    return response;
+};
