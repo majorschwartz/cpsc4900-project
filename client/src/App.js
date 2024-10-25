@@ -4,6 +4,7 @@ import ProtectedRoute from "components/ProtectedRoute";
 import Home from "./pages/home/Home";
 import Auth from "./pages/auth/Auth";
 import Onboarding from "./pages/onboarding/Onboarding";
+import Creation from "./pages/creation/Creation";
 
 function App() {
 	return (
@@ -24,6 +25,14 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<Home />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/creation"
+						element={
+							<ProtectedRoute>
+								<Creation />
 							</ProtectedRoute>
 						}
 					/>
