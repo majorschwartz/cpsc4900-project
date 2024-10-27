@@ -18,9 +18,21 @@ const Home = () => {
 		}
 	}, [onboardingComplete, loading, error, navigate]);
 
+	const handleGenerateRecipe = () => {
+		navigate("/creation");
+	};
+
 	return (
-		<div>
-			This is the home page
+		<div className="container mx-auto px-4 py-8">
+			<h1 className="text-4xl font-bold mb-8 text-center">Welcome to PlatePal</h1>
+			<div className="flex justify-center">
+				<button
+					onClick={handleGenerateRecipe}
+					className="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded"
+				>
+					Generate New Recipe
+				</button>
+			</div>
 		</div>
 	);
 }

@@ -16,7 +16,6 @@ const Creation = () => {
 	];
 	const flavors = ["Spicy", "Sweet", "Sour", "Savory", "Bitter"];
 	const difficulties = ["Easy", "Intermediate", "Advanced"];
-	const servingSizes = ["1", "2", "3", "4", "5", "6", "7+"];
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -153,19 +152,16 @@ const Creation = () => {
 				</div>
 				<div className="mb-6">
 					<h2 className="text-2xl font-semibold mb-2">
-						Serving Size{" "}
-						<span className="text-gray-400 text-sm">
-							(Optional)
-						</span>
+						Serving Size
 					</h2>
-					<div className="grid grid-cols-4 gap-4">
-						{servingSizes.map((size) => (
+					<div className="grid grid-cols-4 gap-4 mb-4">
+						{[1, 2, 3, 4].map((size) => (
 							<button
 								key={size}
 								type="button"
-								onClick={() => setServingSize(size)}
+								onClick={() => setServingSize(size.toString())}
 								className={`p-4 border rounded-lg transition-colors duration-200 ${
-									servingSize === size
+									servingSize === size.toString()
 										? "bg-blue-100 border-blue-500"
 										: "hover:bg-gray-100"
 								}`}
@@ -173,6 +169,16 @@ const Creation = () => {
 								{size}
 							</button>
 						))}
+					</div>
+					<div className="flex items-center">
+						<input
+							type="number"
+							min="1"
+							value={servingSize}
+							onChange={(e) => setServingSize(e.target.value)}
+							className="w-16 p-2 border rounded-lg mr-2"
+						/>
+						<span className="text-gray-600">servings</span>
 					</div>
 				</div>
 
