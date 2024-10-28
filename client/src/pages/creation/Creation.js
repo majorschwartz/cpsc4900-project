@@ -41,6 +41,22 @@ const Creation = () => {
 		}
 	};
 
+	const handleMealTypeClick = (type) => {
+		setMealType(mealType === type ? "" : type);
+	};
+
+	const handleRecipeLengthClick = (length) => {
+		setRecipeLength(recipeLength === length ? "" : length);
+	};
+
+	const handleFlavorClick = (f) => {
+		setFlavor(flavor === f ? "" : f);
+	};
+
+	const handleDifficultyClick = (d) => {
+		setDifficulty(difficulty === d ? "" : d);
+	};
+
 	return (
 		<div className="container max-w-3xl mx-auto px-4 py-8">
 			<button
@@ -67,7 +83,7 @@ const Creation = () => {
 							<button
 								key={type}
 								type="button"
-								onClick={() => setMealType(type)}
+								onClick={() => handleMealTypeClick(type)}
 								className={`p-4 border rounded-lg transition-colors duration-200 ${
 									mealType === type
 										? "bg-blue-100 border-blue-500"
@@ -108,7 +124,7 @@ const Creation = () => {
 							<button
 								key={length}
 								type="button"
-								onClick={() => setRecipeLength(length)}
+								onClick={() => handleRecipeLengthClick(length)}
 								className={`p-4 border rounded-lg transition-colors duration-200 ${
 									recipeLength === length
 										? "bg-blue-100 border-blue-500"
@@ -133,13 +149,13 @@ const Creation = () => {
 							<button
 								key={f}
 								type="button"
-								onClick={() => setFlavor(f)}
+								onClick={() => handleFlavorClick(f)}
 								className={`p-4 border rounded-lg transition-colors duration-200 ${
 									flavor === f
 										? "bg-blue-100 border-blue-500"
 										: "hover:bg-gray-100"
 								}`}
-							>
+								>
 								{f}
 							</button>
 						))}
@@ -157,7 +173,7 @@ const Creation = () => {
 							<button
 								key={d}
 								type="button"
-								onClick={() => setDifficulty(d)}
+								onClick={() => handleDifficultyClick(d)}
 								className={`p-4 border rounded-lg transition-colors duration-200 ${
 									difficulty === d
 										? "bg-blue-100 border-blue-500"
@@ -169,47 +185,47 @@ const Creation = () => {
 						))}
 					</div>
 				</div>
-				<div className="mb-6">
-					<h2 className="text-2xl font-semibold mb-2">
-						Serving Size
-					</h2>
-					<div className="grid grid-cols-4 gap-4 mb-4">
-						{[1, 2, 3, 4].map((size) => (
-							<button
-								key={size}
-								type="button"
-								onClick={() => setServingSize(size.toString())}
-								className={`p-4 border rounded-lg transition-colors duration-200 ${
-									servingSize === size.toString()
-										? "bg-blue-100 border-blue-500"
-										: "hover:bg-gray-100"
-								}`}
-							>
-								{size}
-							</button>
-						))}
+					<div className="mb-6">
+						<h2 className="text-2xl font-semibold mb-2">
+							Serving Size
+						</h2>
+						<div className="grid grid-cols-4 gap-4 mb-4">
+							{[1, 2, 3, 4].map((size) => (
+								<button
+									key={size}
+									type="button"
+									onClick={() => setServingSize(size.toString())}
+									className={`p-4 border rounded-lg transition-colors duration-200 ${
+										servingSize === size.toString()
+											? "bg-blue-100 border-blue-500"
+											: "hover:bg-gray-100"
+									}`}
+								>
+									{size}
+								</button>
+							))}
+						</div>
+						<div className="flex items-center">
+							<input
+								type="number"
+								min="1"
+								value={servingSize}
+								onChange={(e) => setServingSize(e.target.value)}
+								className="w-16 p-2 border rounded-lg mr-2"
+							/>
+							<span className="text-gray-600">servings</span>
+						</div>
 					</div>
-					<div className="flex items-center">
-						<input
-							type="number"
-							min="1"
-							value={servingSize}
-							onChange={(e) => setServingSize(e.target.value)}
-							className="w-16 p-2 border rounded-lg mr-2"
-						/>
-						<span className="text-gray-600">servings</span>
-					</div>
-				</div>
 
-				<button
-					type="submit"
-					className="w-full mt-8 bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
-				>
-					Generate Recipe
-				</button>
-			</form>
-		</div>
-	);
-};
+					<button
+						type="submit"
+						className="w-full mt-8 bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600"
+					>
+						Generate Recipe
+					</button>
+				</form>
+			</div>
+		);
+	};
 
-export default Creation;
+	export default Creation;

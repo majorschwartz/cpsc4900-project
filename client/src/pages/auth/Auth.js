@@ -37,11 +37,16 @@ const Auth = () => {
 	return (
 		<div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
 			<div className="w-full max-w-md p-8 space-y-8 bg-white rounded-xl shadow-lg">
+				<img 
+					src="assets/misc/chef.png" 
+					alt="logo" 
+					className="h-32 md:h-64 mx-auto" 
+				/>
 				<div className="text-center">
 					<h2 className="mt-6 text-3xl font-bold text-gray-900">
-						Welcome Back
+						Welcome Back!
 					</h2>
-					<p className="mt-2 text-sm text-gray-600">
+					<p className="mt-4 text-base text-gray-600">
 						Please sign in to continue
 					</p>
 				</div>

@@ -81,7 +81,7 @@ const Recipe = () => {
                             <li key={index} className="flex items-start">
                                 <span className="text-blue-600 mr-2">•</span>
                                 <span>
-                                    <span className={equipment.required ? 'font-medium' : ''}>
+                                    <span>
                                         {equipment.item}
                                     </span>
                                     {equipment.substitute && equipment.substitute !== "None" && equipment.substitute !== "N/A" && (
