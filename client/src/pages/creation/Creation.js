@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { create_recipe } from "apis/recipes";
 
 const Creation = () => {
 	const [mealType, setMealType] = useState("");
@@ -7,7 +8,7 @@ const Creation = () => {
 	const [recipeLength, setRecipeLength] = useState("");
 	const [flavor, setFlavor] = useState("");
 	const [difficulty, setDifficulty] = useState("");
-	const [servingSize, setServingSize] = useState("");
+	const [servingSize, setServingSize] = useState("1");
 
 	const mealTypes = ["Breakfast", "Lunch", "Dinner", "Dessert"];
 	const recipeLengths = [
@@ -41,12 +42,19 @@ const Creation = () => {
 	};
 
 	return (
-		<div className="container mx-auto px-4 py-8">
+		<div className="container max-w-3xl mx-auto px-4 py-8">
+			<button
+				onClick={() => navigate('/')}
+				className="mb-6 flex items-center text-blue-600 hover:text-blue-800 transition-colors"
+			>
+				<span className="mr-2">←</span> Back to Recipes
+			</button>
+
 			<h1 className="text-4xl font-bold mb-8 text-center">
 				Create A New Recipe
 			</h1>
 
-			<form onSubmit={handleSubmit} className="max-w-2xl mx-auto">
+			<form onSubmit={handleSubmit} className="mx-auto">
 				<div className="mb-6">
 					<h2 className="text-2xl font-semibold mb-2">
 						Meal Type{" "}

@@ -15,5 +15,5 @@ async def insert_inventory(user_id: str, inventory: dict):
     await inventory_collection.insert_one({"user_id": user_id, "inventory": inventory})
 
 async def insert_recipe(user_id: str, recipe: dict):
-    await recipe_collection.insert_one({"user_id": user_id, "recipe": recipe})
-    
+    recipe_result = await recipe_collection.insert_one({"user_id": user_id, "recipe": recipe})
+    return str(recipe_result.inserted_id)

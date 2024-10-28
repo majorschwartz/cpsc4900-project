@@ -8,6 +8,10 @@ export const get_recipes = async () => {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
     });
+    
+    if (!response.ok) {
+        throw new Error("Failed to fetch recipes");
+    }
     return response;
 };
 

@@ -22,8 +22,21 @@ async def find_inventory_by_user_id(user_id: str):
     return result["inventory"] if result else None
 
 async def find_recipes_by_user_id(user_id: str):
-	result = await recipe_collection.find_one({"user_id": user_id})
-	return result["recipes"] if result else None
+    exclude_fields = {
+        "user_id": 0,
+        "recipe.prep_time": 0,
+        "recipe.cook_time": 0,
+        "recipe.servings": 0,
+        "recipe.ingredients": 0,
+        "recipe.equipment_needed": 0,
+        "recipe.instructions": 0,
+        "recipe.nutrition": 0,
+        "recipe.cuisine_type": 0,
+        "recipe.dietary_info": 0,
+    }
+    result = await recipe_collection.find({"user_id": user_id}, exclude_fields).to_list(length=None)
+    return result if result else None
 
 async def find_recipe_by_id(recipe_id: ObjectId):
-    return await recipe_collection.find_one({"_id": recipe_id})
+    result = await recipe_collection.find_one({"_id": recipe_id})
+    return result if result else None

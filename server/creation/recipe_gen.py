@@ -1,4 +1,6 @@
 from openai import OpenAI
+from starlette.concurrency import run_in_threadpool
+from services.oai import openai_thread_client
 from typing import Dict, Any
 import json
 
@@ -42,7 +44,7 @@ Please generate a recipe in the following JSON format:
         {{
             "item": "string",
             "required": "boolean",
-            "substitute": "string"
+            "substitute": "string|None"
         }}
     ],
     "instructions": [
@@ -50,10 +52,6 @@ Please generate a recipe in the following JSON format:
             "step": "integer",
             "description": "string",
             "time": "string",
-            "temperature": {{
-                "value": "number|null",
-                "unit": "F|C|null"
-            }}
         }}
     ],
     "nutrition": {{
@@ -67,7 +65,7 @@ Please generate a recipe in the following JSON format:
     "dietary_info": ["string"]
 }}
 
-Ensure all measurements are precise and the recipe is detailed and easy to follow."""
+Ensure all measurements are precise and the recipe is detailed and easy to follow. Include any temperature information in the instructions."""
 
     return prompt
 
@@ -76,18 +74,13 @@ async def generate_recipe(user_preferences: Dict[str, Any]) -> Dict[str, Any]:
     try:
         prompt = construct_recipe_prompt(user_preferences)
 
-        response = await client.chat.completions.create(
-            model="gpt-4o-mini",
-            messages=[
-                {
-                    "role": "system",
-                    "content": "You are a professional chef with extensive experience in recipe creation.",
-                },
-                {"role": "user", "content": prompt},
-            ],
+        response = await run_in_threadpool(
+            openai_thread_client.do_chat_completion,
+            system_content="You are a professional chef with extensive experience in recipe creation.",
+            user_content=prompt,
             temperature=0.7,
             max_tokens=2000,
-            response_format={"type": "json_object"},
+            json=True,
         )
 
         recipe_json = json.loads(response.choices[0].message.content)

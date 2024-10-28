@@ -9,7 +9,7 @@ import Recipe from "pages/recipe/Recipe";
 
 function App() {
 	return (
-		<div className="flex flex-col h-screen p-4">
+		<div>
 			<Router>
 				<Routes>
 					<Route path="/auth" element={<Auth />} />
