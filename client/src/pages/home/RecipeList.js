@@ -29,7 +29,7 @@ const RecipeList = ({ recipes, loading, error }) => {
                                 {recipe.recipe.difficulty}
                             </span>
                             <span className="text-gray-600 text-sm">
-                                {recipe.recipe.total_time}
+                                {recipe.recipe.total_time} minutes
                             </span>
                         </div>
 
