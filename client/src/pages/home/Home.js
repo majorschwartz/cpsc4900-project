@@ -29,7 +29,7 @@ const Home = () => {
 
 	return (
 		<div className="bg-gradient-to-b from-gray-50 to-gray-100">
-			<div className="container mx-auto px-4 py-12 h-screen">
+			<div className="container mx-auto px-4 py-12 min-h-min h-screen">
 				<div className="flex flex-col items-center mb-16">
 					<h1 className="flex items-center justify-center gap-4 text-5xl font-bold mb-6 text-gray-800 text-center flex-wrap">
 						<span className="whitespace-nowrap">Welcome to</span>

@@ -44,15 +44,15 @@ const Recipe = () => {
                 <div className="mt-6 grid grid-cols-3 gap-4">
                     <div className="bg-white p-4 rounded-lg text-center shadow-sm">
                         <span className="block text-sm text-gray-500 uppercase tracking-wide">Prep Time</span>
-                        <span className="text-lg font-medium text-gray-800">{recipe.prep_time}</span>
+                        <span className="text-lg font-medium text-gray-800">{recipe.prep_time} minutes</span>
                     </div>
                     <div className="bg-white p-4 rounded-lg text-center shadow-sm">
                         <span className="block text-sm text-gray-500 uppercase tracking-wide">Cook Time</span>
-                        <span className="text-lg font-medium text-gray-800">{recipe.cook_time}</span>
+                        <span className="text-lg font-medium text-gray-800">{recipe.cook_time} minutes</span>
                     </div>
                     <div className="bg-white p-4 rounded-lg text-center shadow-sm">
                         <span className="block text-sm text-gray-500 uppercase tracking-wide">Total Time</span>
-                        <span className="text-lg font-medium text-gray-800">{recipe.total_time}</span>
+                        <span className="text-lg font-medium text-gray-800">{recipe.total_time} minutes</span>
                     </div>
                 </div>
             </div>
@@ -65,9 +65,9 @@ const Recipe = () => {
                             <li key={index} className="flex items-start">
                                 <span className="text-green-600 mr-2">•</span>
                                 <span>
-                                    <span className="font-medium">{ingredient.amount} {ingredient.unit ? ingredient.unit !== "count" : ""}</span>
+                                    <span className="font-medium">{ingredient.amount} {ingredient.unit !== "count" ? ingredient.unit : ""}</span>
                                     {' '}{ingredient.item}
-                                    {ingredient.notes && <span className="text-gray-500 italic"> ({ingredient.notes})</span>}
+                                    {ingredient.notes && <span className="text-gray-500 italic"> ({ingredient.notes.replaceAll(".", "")})</span>}
                                 </span>
                             </li>
                         ))}
@@ -107,7 +107,7 @@ const Recipe = () => {
                                 {instruction.time && (
                                     <>
                                         <br />
-                                        <span className="text-gray-500 italic">({instruction.time})</span>
+                                        <span className="text-gray-500 italic">({instruction.time} minutes)</span>
                                     </>
                                 )}
                             </span>
@@ -121,9 +121,9 @@ const Recipe = () => {
                 <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                     {[
                         { label: 'Calories', value: recipe.nutrition.calories },
-                        { label: 'Protein', value: `${recipe.nutrition.protein.amount}g` },
-                        { label: 'Carbs', value: `${recipe.nutrition.carbohydrates.amount}g` },
-                        { label: 'Fat', value: `${recipe.nutrition.fat.amount}g` }
+                        { label: 'Protein', value: `${recipe.nutrition.protein}g` },
+                        { label: 'Carbs', value: `${recipe.nutrition.carbohydrates}g` },
+                        { label: 'Fat', value: `${recipe.nutrition.fat}g` }
                     ].map(({ label, value }) => (
                         <div key={label} className="text-center p-3 bg-gray-50 rounded-lg">
                             <span className="block text-sm text-gray-500 uppercase tracking-wide">{label}</span>
