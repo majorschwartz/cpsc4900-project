@@ -11,16 +11,21 @@ export const get_recipes = async () => {
     return response;
 };
 
-export const create_recipe = async (recipe) => {
-    const response = await fetch(`${apiUrl}/recipes`, {
+export const create_recipe = async (recipeData) => {
+    const response = await fetch(`${apiUrl}/creation`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
             Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
-        body: JSON.stringify(recipe),
+        body: JSON.stringify(recipeData),
     });
-    return response;
+    
+    if (!response.ok) {
+        throw new Error("Failed to generate recipe");
+    }
+    
+    return response.json();
 };
 
 export const update_recipe = async (recipeId, recipe) => {
@@ -46,3 +51,18 @@ export const delete_recipe = async (recipeId) => {
     return response;
 };
 
+export const get_recipe = async (recipeId) => {
+    const response = await fetch(`${apiUrl}/recipes/${recipeId}`, {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
+    
+    if (!response.ok) {
+        throw new Error("Failed to fetch recipe");
+    }
+    
+    return response.json();
+};

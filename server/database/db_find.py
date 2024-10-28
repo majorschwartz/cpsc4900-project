@@ -1,4 +1,5 @@
 from database.database import user_collection, preferences_collection, equipment_collection, inventory_collection, recipe_collection
+from bson import ObjectId
 
 async def find_user_by_email(email: str):
     user = await user_collection.find_one({"email": email})
@@ -23,3 +24,6 @@ async def find_inventory_by_user_id(user_id: str):
 async def find_recipes_by_user_id(user_id: str):
 	result = await recipe_collection.find_one({"user_id": user_id})
 	return result["recipes"] if result else None
+
+async def find_recipe_by_id(recipe_id: ObjectId):
+    return await recipe_collection.find_one({"_id": recipe_id})

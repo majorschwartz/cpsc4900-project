@@ -1,7 +1,7 @@
 import random
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from routes import auth, user, preferences, equipment, inventory, creation
+from routes import auth, user, preferences, equipment, inventory, creation, recipes
 from config import ORIGIN_ENDPOINT
 
 app = FastAPI()
@@ -20,6 +20,7 @@ app.include_router(preferences.router)
 app.include_router(equipment.router)
 app.include_router(inventory.router)
 app.include_router(creation.router)
+app.include_router(recipes.router)
 
 @app.get("/hello-world")
 async def hello_world():

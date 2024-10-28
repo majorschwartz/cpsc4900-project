@@ -5,6 +5,7 @@ import Home from "./pages/home/Home";
 import Auth from "./pages/auth/Auth";
 import Onboarding from "./pages/onboarding/Onboarding";
 import Creation from "./pages/creation/Creation";
+import Recipe from "pages/recipe/Recipe";
 
 function App() {
 	return (
@@ -33,6 +34,14 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<Creation />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/recipe/:id"
+						element={
+							<ProtectedRoute>
+								<Recipe />
 							</ProtectedRoute>
 						}
 					/>

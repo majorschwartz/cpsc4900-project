@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Creation = () => {
 	const [mealType, setMealType] = useState("");
@@ -17,16 +18,26 @@ const Creation = () => {
 	const flavors = ["Spicy", "Sweet", "Sour", "Savory", "Bitter"];
 	const difficulties = ["Easy", "Intermediate", "Advanced"];
 
-	const handleSubmit = (e) => {
+	const navigate = useNavigate();
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log({
-			mealType,
-			specificFood,
-			recipeLength,
-			flavor,
-			difficulty,
-			servingSize,
-		});
+		try {
+			const recipeData = {
+				meal_type: mealType,
+				specific_food: specificFood,
+				recipe_length: recipeLength,
+				flavor: flavor,
+				difficulty: difficulty,
+				serving_size: parseInt(servingSize)
+			};
+			
+			const response = await create_recipe(recipeData);
+			navigate(`/recipe/${response.recipe_id}`);
+		} catch (error) {
+			console.error("Failed to generate recipe:", error);
+			// Handle error (show error message to user)
+		}
 	};
 
 	return (
