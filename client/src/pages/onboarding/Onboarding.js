@@ -18,6 +18,7 @@ const Onboarding = () => {
 	const { inventory, loading: loadingInv } = useUserInv();
 	
 	const stepStage = () => {
+		window.scrollTo(0, 0);
 		if (stage !== 2) {
 			setStage(stage + 1);
 		} else {
