@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 
 const Header = () => {
 	const navigate = useNavigate();
-	const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+	const [isMenuOpen, setIsMenuOpen] = useState(false);
 
 	const handleSignOut = () => {
 		localStorage.removeItem("token");
@@ -12,7 +12,7 @@ const Header = () => {
 	};
 
 	const handleGenerateRecipe = () => {
-			navigate("/creation");
+		navigate("/creation");
 	};
 
 	return (
@@ -37,8 +37,22 @@ const Header = () => {
 						onClick={() => setIsMenuOpen(!isMenuOpen)}
 						className="md:hidden p-2"
 					>
-						<svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-							<path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d={isMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"} />
+						<svg
+							className="w-6 h-6"
+							fill="none"
+							stroke="currentColor"
+							viewBox="0 0 24 24"
+						>
+							<path
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								strokeWidth={2}
+								d={
+									isMenuOpen
+										? "M6 18L18 6M6 6l12 12"
+										: "M4 6h16M4 12h16M4 18h16"
+								}
+							/>
 						</svg>
 					</button>
 
@@ -95,7 +109,7 @@ const Header = () => {
 						>
 							Generate New Recipe
 						</button>
-						<nav className="flex flex-col space-y-4">
+						<nav className="flex flex-col space-y-4 ml-4">
 							<NavLink
 								to="/"
 								className={({ isActive }) =>

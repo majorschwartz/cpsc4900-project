@@ -5,7 +5,7 @@ import Auth from "./pages/auth/Auth";
 import Onboarding from "./pages/onboarding/Onboarding";
 import Creation from "./pages/creation/Creation";
 import Recipe from "pages/recipe/Recipe";
-
+import Explore from "pages/explore/Explore";
 function App() {
 	return (
 		<div>
@@ -25,6 +25,14 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<Home />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/explore"
+						element={
+							<ProtectedRoute>
+								<Explore />
 							</ProtectedRoute>
 						}
 					/>

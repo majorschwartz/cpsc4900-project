@@ -75,7 +75,6 @@ Please generate a recipe in the following JSON format:
 
 Ensure all measurements are precise and the recipe is detailed and easy to follow. Include any temperature information in the instructions."""
 
-    print(prompt)
     return prompt
 
 

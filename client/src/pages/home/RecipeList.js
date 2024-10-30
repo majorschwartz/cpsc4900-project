@@ -6,7 +6,7 @@ const RecipeList = ({ recipes, loading, error }) => {
 
     if (loading) return <div className="text-center py-8">Loading recipes...</div>;
     if (error) return <div className="text-center py-8 text-red-500">Error loading recipes: {error}</div>;
-    if (!recipes?.length) return <div className="text-center py-8 text-gray-500">No recipes yet. Generate your first recipe!</div>;
+    if (!recipes?.length) return <div className="text-center py-8 text-gray-500">No recipes yet. Create one!</div>;
 
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
