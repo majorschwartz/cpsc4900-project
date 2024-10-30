@@ -27,6 +27,14 @@ class RecipeRequest(BaseModel):
 @router.post("/creation")
 @token_required
 async def create_recipe(request: Request, recipe_request: RecipeRequest):
+    skip_and_wait = False
+    if skip_and_wait:
+        await asyncio.sleep(30)
+        return JSONResponse(
+            content={"message": "Recipe created successfully", "recipe_id": "123"},
+            status_code=200,
+        )
+
     try:
         current_user = request.state.current_user
         user_id = current_user["_id"]

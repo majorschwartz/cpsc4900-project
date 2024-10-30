@@ -184,7 +184,11 @@ const Creation = () => {
 									onClick={() => handleDifficultyClick(d)}
 									className={`p-4 border rounded-lg transition-colors duration-200 ${
 										difficulty === d
-											? "bg-blue-100 border-blue-500"
+											? d === "Easy"
+												? "bg-green-100 border-green-500"
+												: d === "Intermediate"
+												? "bg-yellow-100 border-yellow-500"
+												: "bg-red-100 border-red-500"
 											: "hover:bg-gray-100"
 									}`}
 								>

@@ -33,6 +33,7 @@ Please generate a recipe in the following JSON format:
 {{
     "recipe_name": string,
     "description": string,
+    "meal_type": "Breakfast"|"Lunch"|"Dinner"|"Dessert",
     "prep_time": integer, # in minutes
     "cook_time": integer, # in minutes
     "total_time": integer, # in minutes
