@@ -6,15 +6,15 @@ import useUserPrefs from "hooks/useUserPrefs";
 
 const ModifyPreferences = () => {
     const navigate = useNavigate();
-    const { preferences, loading } = useUserPrefs();
+    const { preferences, loading, error } = useUserPrefs();
 
     const handleStepStage = () => {
         navigate("/profile");
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+	if (!loading && error) {
+		return <div>Error finding preferences</div>
+	}
 
     return (
         <div className="bg-white min-h-screen">

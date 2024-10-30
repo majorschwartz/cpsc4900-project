@@ -9,24 +9,14 @@ const Home = () => {
 	const { recipes, loading: recipesLoading, error: recipesError } = useUserRecipes();
 	const { onboardingComplete, loading: userLoading, error: userError } = useUserData();
 
-	if (userLoading || recipesLoading) {
-		return <div>Loading...</div>;
-	}
-
-	if (recipesError) {
-		return <div>Error loading recipes</div>;
-	}
-
 	if (userError) {
         localStorage.removeItem("token");
         return <Navigate to="/auth" />;
     }
 
-	if (!onboardingComplete) {
+	if (!userLoading && !onboardingComplete) {
 		return <Navigate to="/onboarding" />;
 	}
-
-
 
 	return (
 		<div className="bg-gradient-to-b from-gray-50 to-gray-100 min-h-screen">
@@ -36,11 +26,13 @@ const Home = () => {
 					<h2 className="text-3xl font-semibold mb-8 text-gray-800 border-b pb-4">
 						Your Recipes
 					</h2>
-					<RecipeList 
-						recipes={recipes} 
-						loading={recipesLoading} 
-						error={recipesError} 
-					/>
+					{recipes && (
+						<RecipeList
+							recipes={recipes}
+							loading={recipesLoading}
+							error={recipesError}
+						/>
+					)}
 				</div>
 			</div>
 		</div>

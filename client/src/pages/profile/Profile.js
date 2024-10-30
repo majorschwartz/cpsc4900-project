@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import useUserData from "hooks/useUserData";
 import Header from "components/Header";
 
@@ -19,12 +19,9 @@ const Profile = () => {
 		navigate("/inventory");
 	};
 
-	if (loading) {
-		return <div>Loading...</div>;
-	}
-
-	if (error) {
-		return <div>Error loading profile</div>;
+	if (!loading && error) {
+		localStorage.removeItem("token");
+		return <Navigate to="/auth" />;
 	}
 
 	return (

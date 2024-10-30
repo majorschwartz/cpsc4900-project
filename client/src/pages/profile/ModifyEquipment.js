@@ -6,15 +6,15 @@ import useUserEquip from "hooks/useUserEquip";
 
 const ModifyEquipment = () => {
     const navigate = useNavigate();
-    const { equipment, loading } = useUserEquip();
+    const { equipment, loading, error } = useUserEquip();
 
     const handleStepStage = () => {
         navigate("/profile");
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    if (!loading && error) {
+		return <div>Error finding equipment</div>
+	}
 
     return (
         <div className="bg-white min-h-screen">

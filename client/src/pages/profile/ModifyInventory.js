@@ -6,15 +6,15 @@ import useUserInv from "hooks/useUserInv";
 
 const ModifyInventory = () => {
     const navigate = useNavigate();
-    const { inventory, loading } = useUserInv();
+    const { inventory, loading, error } = useUserInv();
 
     const handleStepStage = () => {
         navigate("/profile");
     };
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
+    if (!loading && error) {
+		return <div>Error finding inventory</div>
+	}
 
     return (
         <div className="bg-white min-h-screen">
