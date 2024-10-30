@@ -16,7 +16,7 @@ class Preferences(BaseModel):
 
 @router.post("/preferences")
 @token_required
-async def create_preferences(request: Request, preferences: Preferences):
+async def create_preferences_endpoint(request: Request, preferences: Preferences):
 	user_id = request.state.current_user["_id"]
 	db_preferences = await find_preferences_by_user_id(user_id)
 
@@ -27,10 +27,16 @@ async def create_preferences(request: Request, preferences: Preferences):
 		await insert_preferences(user_id, preferences.preferences)
 		return JSONResponse(content={"message": "Preferences created successfully"}, status_code=201)
 
+@router.put("/preferences")
+@token_required
+async def update_preferences_endpoint(request: Request, preferences: Preferences):
+	user_id = request.state.current_user["_id"]
+	await update_preferences(user_id, preferences.preferences)
+	return JSONResponse(content={"message": "Preferences updated successfully"}, status_code=200)
 
 @router.get("/preferences")
 @token_required
-async def get_preferences(request: Request):
+async def get_preferences_endpoint(request: Request):
 	user_id = request.state.current_user["_id"]
 	db_preferences = await find_preferences_by_user_id(user_id)
 

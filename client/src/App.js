@@ -6,6 +6,11 @@ import Onboarding from "./pages/onboarding/Onboarding";
 import Creation from "./pages/creation/Creation";
 import Recipe from "pages/recipe/Recipe";
 import Explore from "pages/explore/Explore";
+import Profile from "./pages/profile/Profile";
+import ModifyPreferences from "./pages/profile/ModifyPreferences";
+import ModifyEquipment from "./pages/profile/ModifyEquipment";
+import ModifyInventory from "./pages/profile/ModifyInventory";
+
 function App() {
 	return (
 		<div>
@@ -49,6 +54,38 @@ function App() {
 						element={
 							<ProtectedRoute>
 								<Recipe />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/profile"
+						element={
+							<ProtectedRoute>
+								<Profile />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/preferences"
+						element={
+							<ProtectedRoute>
+								<ModifyPreferences />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/equipment"
+						element={
+							<ProtectedRoute>
+								<ModifyEquipment />
+							</ProtectedRoute>
+						}
+					/>
+					<Route
+						path="/inventory"
+						element={
+							<ProtectedRoute>
+								<ModifyInventory />
 							</ProtectedRoute>
 						}
 					/>

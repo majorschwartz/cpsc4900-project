@@ -16,7 +16,7 @@ class Inventory(BaseModel):
 
 @router.post("/inventory")
 @token_required
-async def create_inventory(request: Request, inventory: Inventory):
+async def create_inventory_endpoint(request: Request, inventory: Inventory):
 	user_id = request.state.current_user["_id"]
 	db_inventory = await find_inventory_by_user_id(user_id)
 
@@ -28,10 +28,16 @@ async def create_inventory(request: Request, inventory: Inventory):
 		await update_user_onboarding(user_id, True)
 		return JSONResponse(content={"message": "Inventory created successfully and onboarding completed"}, status_code=201)
 
+@router.put("/inventory")
+@token_required
+async def update_inventory_endpoint(request: Request, inventory: Inventory):
+	user_id = request.state.current_user["_id"]
+	await update_inventory(user_id, inventory.inventory)
+	return JSONResponse(content={"message": "Inventory updated successfully"}, status_code=200)
 
 @router.get("/inventory")
 @token_required
-async def get_inventory(request: Request):
+async def get_inventory_endpoint(request: Request):
 	user_id = request.state.current_user["_id"]
 	db_inventory = await find_inventory_by_user_id(user_id)
 

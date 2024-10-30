@@ -1,12 +1,30 @@
-import React, { useState } from "react";
-import { set_preferences } from "apis/preferences";
+import React, { useState, useEffect } from "react";
+import { set_preferences, update_preferences } from "apis/preferences";
 import prefList from "./pref_list";
 
-const SelectPrefs = ({ stepStage }) => {
-	const [selectedPreferences, setSelectedPreferences] = useState({});
+const SelectPrefs = ({ preferences = {}, stepStage }) => {
+	const [selectedPreferences, setSelectedPreferences] = useState(preferences || {});
 	const [userAddedItems, setUserAddedItems] = useState({});
 	const [newItemInputs, setNewItemInputs] = useState({});
 	const [selectedAllCategories, setSelectedAllCategories] = useState({});
+
+	useEffect(() => {
+		if (!preferences) {
+			return;
+		}
+
+		Object.entries(prefList).forEach(([category, { items }]) => {
+			const allCategoryItems = items.map(i => i.name);
+			const allSelected = allCategoryItems.every(i => 
+				preferences[category]?.includes(i)
+			);
+			setSelectedAllCategories(prev => ({
+				...prev,
+				[category]: allSelected
+			}));
+		});
+		setSelectedPreferences(preferences);
+	}, [preferences]);
 
 	const togglePreference = (item, category) => {
 		setSelectedPreferences((prev) => {
@@ -35,7 +53,7 @@ const SelectPrefs = ({ stepStage }) => {
 		});
 	};
 
-	const handleSavePreferences = () => {
+	const handleSavePreferences = async () => {
 		const combinedPreferences = { ...selectedPreferences };
 		Object.entries(userAddedItems).forEach(([category, items]) => {
 			combinedPreferences[category] = [
@@ -45,7 +63,13 @@ const SelectPrefs = ({ stepStage }) => {
 				]),
 			];
 		});
-		set_preferences(combinedPreferences);
+		
+		// Check if initialPreferences exists to determine if this is an update
+		if (preferences && Object.keys(preferences).length > 0) {
+			await update_preferences(combinedPreferences);
+		} else {
+			await set_preferences(combinedPreferences);
+		}
 		stepStage();
 	};
 

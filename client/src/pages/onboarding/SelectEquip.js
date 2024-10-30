@@ -1,12 +1,30 @@
-import React, { useState } from "react";
-import { set_equipment } from "apis/equipment";
+import React, { useState, useEffect } from "react";
+import { set_equipment, update_equipment } from "apis/equipment";
 import equipmentList from "./equip_list";
 
-const SelectEquip = ({ stepStage }) => {
-	const [selectedEquipment, setSelectedEquipment] = useState({});
+const SelectEquip = ({ equipment = {}, stepStage }) => {
+	const [selectedEquipment, setSelectedEquipment] = useState(equipment || {});
 	const [userAddedItems, setUserAddedItems] = useState({});
 	const [newItemInputs, setNewItemInputs] = useState({});
 	const [selectedAllCategories, setSelectedAllCategories] = useState({});
+
+	useEffect(() => {
+		if (!equipment) {
+			return;
+		}
+
+		Object.entries(equipmentList).forEach(([category, items]) => {
+			const allCategoryItems = items.map(i => i.name);
+			const allSelected = allCategoryItems.every(i => 
+				equipment[category]?.includes(i)
+			);
+			setSelectedAllCategories(prev => ({
+				...prev,
+				[category]: allSelected
+			}));
+		});
+		setSelectedEquipment(equipment);
+	}, [equipment]);
 
 	const toggleEquipment = (item, category) => {
 		setSelectedEquipment((prev) => {
@@ -33,7 +51,7 @@ const SelectEquip = ({ stepStage }) => {
 		});
 	};
 
-	const handleSaveEquipment = () => {
+	const handleSaveEquipment = async () => {
 		const combinedEquipment = { ...selectedEquipment };
 		Object.entries(userAddedItems).forEach(([category, items]) => {
 			combinedEquipment[category] = [
@@ -43,7 +61,13 @@ const SelectEquip = ({ stepStage }) => {
 				]),
 			];
 		});
-		set_equipment(combinedEquipment);
+		
+		// Check if initialEquipment exists to determine if this is an update
+		if (equipment && Object.keys(equipment).length > 0) {
+			await update_equipment(combinedEquipment);
+		} else {
+			await set_equipment(combinedEquipment);
+		}
 		stepStage();
 	};
 

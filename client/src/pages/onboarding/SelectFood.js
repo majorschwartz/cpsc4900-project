@@ -1,13 +1,30 @@
-import React, { useState } from "react";
-import { set_inventory } from "apis/inventory";
+import React, { useState, useEffect } from "react";
+import { set_inventory, update_inventory } from "apis/inventory";
 import foodList from "./food_list";
 
-const SelectFood = ({ stepStage }) => {
-	const [selectedFood, setSelectedFood] = useState({});
+const SelectFood = ({ inventory = {}, stepStage }) => {
+	const [selectedFood, setSelectedFood] = useState(inventory || {});
 	const [userAddedItems, setUserAddedItems] = useState({});
 	const [newItemInputs, setNewItemInputs] = useState({});
-	// Add this new state
 	const [selectedAllCategories, setSelectedAllCategories] = useState({});
+
+	useEffect(() => {
+		if (!inventory) {
+			return;
+		}
+
+		Object.entries(foodList).forEach(([category, { items }]) => {
+			const allCategoryItems = items.map(i => i.name);
+			const allSelected = allCategoryItems.every(i => 
+				inventory[category]?.includes(i)
+			);
+			setSelectedAllCategories(prev => ({
+				...prev,
+				[category]: allSelected
+			}));
+		});
+		setSelectedFood(inventory);
+	}, [inventory]);
 
 	const toggleFood = (item, category) => {
 		setSelectedFood((prev) => {
@@ -35,14 +52,20 @@ const SelectFood = ({ stepStage }) => {
 		});
 	};
 
-	const handleSaveFood = () => {
+	const handleSaveFood = async () => {
 		const combinedFood = { ...selectedFood };
 		Object.entries(userAddedItems).forEach(([category, items]) => {
 			combinedFood[category] = [
 				...new Set([...(combinedFood[category] || []), ...items]),
 			];
 		});
-		set_inventory(combinedFood);
+		
+		// Check if initialInventory exists to determine if this is an update
+		if (inventory && Object.keys(inventory).length > 0) {
+			await update_inventory(combinedFood);
+		} else {
+			await set_inventory(combinedFood);
+		}
 		stepStage();
 	};
 

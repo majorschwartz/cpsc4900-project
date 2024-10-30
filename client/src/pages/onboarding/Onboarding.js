@@ -50,9 +50,9 @@ const Onboarding = () => {
 	return (
 		<div>
 			{stage === -1 && <div>Loading...</div>}
-			{stage === 0 && <SelectPrefs stepStage={stepStage} />}
-			{stage === 1 && <SelectEquip stepStage={stepStage} />}
-			{stage === 2 && <SelectFood stepStage={stepStage} />}
+			{stage === 0 && <SelectPrefs preferences={preferences} stepStage={stepStage} />}
+			{stage === 1 && <SelectEquip equipment={equipment} stepStage={stepStage} />}
+			{stage === 2 && <SelectFood inventory={inventory} stepStage={stepStage} />}
 		</div>
 	);
 };
