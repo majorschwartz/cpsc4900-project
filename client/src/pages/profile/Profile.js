@@ -5,7 +5,7 @@ import Header from "components/Header";
 
 const Profile = () => {
 	const navigate = useNavigate();
-	const { email, loading, error } = useUserData();
+	const { firstName, email, loading, error } = useUserData();
 
 	const handlePreferencesClick = () => {
 		navigate("/preferences");
@@ -30,7 +30,7 @@ const Profile = () => {
 			<div className="container mx-auto px-4 py-8">
 				<div className="bg-white rounded-xl shadow-lg p-8 max-w-2xl mx-auto">
 					<h2 className="text-3xl font-semibold mb-8 text-gray-800 border-b pb-4">
-						Profile
+						{firstName ? `${firstName}'s` : "Your"} Profile
 					</h2>
 
 					<div className="space-y-6">

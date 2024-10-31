@@ -22,7 +22,10 @@ const Explore = () => {
 				.includes(searchTerm.toLowerCase()) ||
 			recipe.recipe.tags.some((tag) =>
 				tag.toLowerCase().includes(searchTerm.toLowerCase())
-			);
+			) ||
+			recipe.creator_name
+				.toLowerCase()
+				.includes(searchTerm.toLowerCase());
 
 		const matchesDifficulty =
 			!selectedFilters.difficulty ||
@@ -66,7 +69,7 @@ const Explore = () => {
 					<div className="mb-8 relative">
 						<input
 							type="text"
-							placeholder="Search recipes..."
+							placeholder="Search recipes by name, description, tags, or creator..."
 							value={searchTerm}
 							onChange={(e) => setSearchTerm(e.target.value)}
 							className="w-full p-4 pl-12 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent shadow-sm transition duration-200"
