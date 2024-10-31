@@ -195,6 +195,7 @@ const Explore = () => {
 						recipes={filteredRecipes}
 						loading={loading}
 						error={error}
+						rel="explore"
 					/>
 				</div>
 			</div>

@@ -76,8 +76,10 @@ async def google_auth(request: GoogleLoginRequest):
             pass
 
         user = await find_user_by_email(email)
-
-        if not user:
+        
+        if user:
+            user_id = user["_id"]
+        else:
             user_obj = {
                 "first_name": first_name if first_name is not None else "human",
                 "last_name": last_name if last_name is not None else "being",
@@ -92,6 +94,8 @@ async def google_auth(request: GoogleLoginRequest):
         token = jwt.encode(
             {
                 "email": email,
+                "user_id": str(user_id),
+                "first_name": first_name if first_name is not None else "User",
                 "iat": datetime.datetime.now(datetime.UTC),
                 "exp": datetime.datetime.now(datetime.UTC) + datetime.timedelta(days=30),
             },

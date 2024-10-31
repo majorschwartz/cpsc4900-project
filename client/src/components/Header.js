@@ -23,11 +23,13 @@ const Header = () => {
 			<div className="container mx-auto px-4">
 				<div className="flex items-center justify-between h-16">
 					<div className="flex items-center space-x-4">
-						<img
-							src="/assets/misc/logo.png"
-							alt="PlatePal"
-							className="h-8 w-auto"
-						/>
+						<div className="h-8 w-[136px]">
+							<img
+								src="/assets/misc/logo.png"
+								alt="PlatePal"
+								className="h-8 w-auto"
+							/>
+						</div>
 						<button
 							onClick={() => handleNavigation("/creation")}
 							className="hidden md:block bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-lg transition-all duration-200 whitespace-nowrap"
@@ -63,16 +65,16 @@ const Header = () => {
 						<nav className="flex items-center space-x-4 lg:space-x-8">
 							<button
 								onClick={() => handleNavigation("/")}
-								className={`text-gray-600 hover:text-gray-900 font-medium ${
-									isActive("/") ? "text-blue-500" : ""
+								className={`font-medium ${
+									isActive("/") ? "text-blue-500 hover:text-blue-600" : "text-gray-600 hover:text-gray-900"
 								}`}
 							>
 								Your Recipes
 							</button>
 							<button
 								onClick={() => handleNavigation("/explore")}
-								className={`text-gray-600 hover:text-gray-900 font-medium ${
-									isActive("/explore") ? "text-blue-500" : ""
+								className={`font-medium ${
+									isActive("/explore") ? "text-blue-500 hover:text-blue-600" : "text-gray-600 hover:text-gray-900"
 								}`}
 							>
 								Explore
@@ -82,8 +84,8 @@ const Header = () => {
 						<div className="flex items-center space-x-4 lg:space-x-6">
 							<button
 								onClick={() => handleNavigation("/profile")}
-								className={`text-gray-600 hover:text-gray-900 font-medium ${
-									isActive("/profile") ? "text-blue-500" : ""
+								className={`font-medium ${
+									isActive("/profile") ? "text-blue-500 hover:text-blue-600" : "text-gray-600 hover:text-gray-900"
 								}`}
 							>
 								Your Profile

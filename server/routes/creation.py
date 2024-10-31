@@ -38,6 +38,7 @@ async def create_recipe(request: Request, recipe_request: RecipeRequest):
     try:
         current_user = request.state.current_user
         user_id = current_user["_id"]
+        creator_name = current_user["first_name"]
 
         # Gather all user data
         preferences = await find_preferences_by_user_id(user_id)
@@ -67,7 +68,7 @@ async def create_recipe(request: Request, recipe_request: RecipeRequest):
         generated_recipe = await generate_recipe(recipe_data)
 
         # Save recipe to database
-        recipe_id = await insert_recipe(user_id, generated_recipe)
+        recipe_id = await insert_recipe(user_id, creator_name, generated_recipe)
 
         return JSONResponse(
             content={"message": "Recipe created successfully", "recipe_id": str(recipe_id)},

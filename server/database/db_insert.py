@@ -27,10 +27,11 @@ async def insert_inventory(user_id: str, inventory: dict):
     await inventory_collection.insert_one({"user_id": user_id, "inventory": inventory})
 
 
-async def insert_recipe(user_id: str, recipe: dict):
+async def insert_recipe(user_id: str, creator_name: str, recipe: dict):
     recipe_result = await recipe_collection.insert_one(
         {
             "creator_id": user_id,
+            "creator_name": creator_name,
             "users_id": [str(user_id)],
             "created_at": datetime.datetime.now(datetime.UTC),
             "recipe": recipe,

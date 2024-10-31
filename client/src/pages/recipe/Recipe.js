@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useSearchParams, useNavigate } from 'react-router-dom';
 import { get_recipe } from 'apis/recipes';
 
 const Recipe = () => {
     const { id } = useParams();
+    const [searchParams] = useSearchParams();
+    const rel = searchParams.get('rel');
     const navigate = useNavigate();
     const [recipe, setRecipe] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -31,7 +33,7 @@ const Recipe = () => {
     return (
         <div className="container mx-auto px-4 py-8 max-w-4xl">
             <button
-                onClick={() => navigate('/')}
+                onClick={() => navigate(`${rel === "explore" ? "/explore" : "/"}`)}
                 className="mb-6 flex items-center text-blue-600 hover:text-blue-800 transition-colors"
             >
                 <span className="mr-2">←</span> Back to Recipes

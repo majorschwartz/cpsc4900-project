@@ -6,6 +6,9 @@ const UserContext = createContext(null);
 export const UserProvider = ({ children }) => {
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
 	const [loginChecked, setLoginChecked] = useState(false);
+	const [userId, setUserId] = useState(null);
+	const [firstName, setFirstName] = useState(null);
+	const [email, setEmail] = useState(null);
 
 	useEffect(() => {
 		const token = localStorage.getItem("token");
@@ -19,6 +22,9 @@ export const UserProvider = ({ children }) => {
 				} else {
 					isValid = true;
 				}
+				setUserId(decodedToken.user_id);
+				setFirstName(decodedToken.first_name);
+				setEmail(decodedToken.email);
 			} catch (e) {
 				console.error(e);
 			}
@@ -29,7 +35,7 @@ export const UserProvider = ({ children }) => {
 
 	return (
 		<UserContext.Provider
-			value={{ isLoggedIn, setIsLoggedIn, loginChecked }}
+			value={{ isLoggedIn, setIsLoggedIn, loginChecked, userId, firstName, email }}
 		>
 			{children}
 		</UserContext.Provider>
