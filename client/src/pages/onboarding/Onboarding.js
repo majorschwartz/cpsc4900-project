@@ -16,7 +16,7 @@ const Onboarding = () => {
 	const { preferences, loading: loadingPrefs } = useUserPrefs();
 	const { equipment, loading: loadingEquip } = useUserEquip();
 	const { inventory, loading: loadingInv } = useUserInv();
-	
+
 	const stepStage = () => {
 		window.scrollTo(0, 0);
 		if (stage !== 2) {
@@ -45,14 +45,31 @@ const Onboarding = () => {
 				setStage(2);
 			}
 		}
-	}, [preferences, equipment, inventory, loadingPrefs, loadingEquip, loadingInv, loadingUser, error, onboardingComplete, navigate]);
+	}, [
+		preferences,
+		equipment,
+		inventory,
+		loadingPrefs,
+		loadingEquip,
+		loadingInv,
+		loadingUser,
+		error,
+		onboardingComplete,
+		navigate,
+	]);
 
 	return (
 		<div>
 			{stage === -1 && <div>Loading...</div>}
-			{stage === 0 && <SelectPrefs preferences={preferences} stepStage={stepStage} />}
-			{stage === 1 && <SelectEquip equipment={equipment} stepStage={stepStage} />}
-			{stage === 2 && <SelectFood inventory={inventory} stepStage={stepStage} />}
+			{stage === 0 && (
+				<SelectPrefs preferences={preferences} stepStage={stepStage} />
+			)}
+			{stage === 1 && (
+				<SelectEquip equipment={equipment} stepStage={stepStage} />
+			)}
+			{stage === 2 && (
+				<SelectFood inventory={inventory} stepStage={stepStage} />
+			)}
 		</div>
 	);
 };

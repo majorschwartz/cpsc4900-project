@@ -14,13 +14,13 @@ const SelectEquip = ({ equipment = {}, stepStage }) => {
 		}
 
 		Object.entries(equipmentList).forEach(([category, items]) => {
-			const allCategoryItems = items.map(i => i.name);
-			const allSelected = allCategoryItems.every(i => 
+			const allCategoryItems = items.map((i) => i.name);
+			const allSelected = allCategoryItems.every((i) =>
 				equipment[category]?.includes(i)
 			);
-			setSelectedAllCategories(prev => ({
+			setSelectedAllCategories((prev) => ({
 				...prev,
-				[category]: allSelected
+				[category]: allSelected,
 			}));
 		});
 		setSelectedEquipment(equipment);
@@ -55,13 +55,10 @@ const SelectEquip = ({ equipment = {}, stepStage }) => {
 		const combinedEquipment = { ...selectedEquipment };
 		Object.entries(userAddedItems).forEach(([category, items]) => {
 			combinedEquipment[category] = [
-				...new Set([
-					...(combinedEquipment[category] || []),
-					...items,
-				]),
+				...new Set([...(combinedEquipment[category] || []), ...items]),
 			];
 		});
-		
+
 		// Check if initialEquipment exists to determine if this is an update
 		if (equipment && Object.keys(equipment).length > 0) {
 			await update_equipment(combinedEquipment);

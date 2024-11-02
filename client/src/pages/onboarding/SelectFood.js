@@ -14,13 +14,13 @@ const SelectFood = ({ inventory = {}, stepStage }) => {
 		}
 
 		Object.entries(foodList).forEach(([category, { items }]) => {
-			const allCategoryItems = items.map(i => i.name);
-			const allSelected = allCategoryItems.every(i => 
+			const allCategoryItems = items.map((i) => i.name);
+			const allSelected = allCategoryItems.every((i) =>
 				inventory[category]?.includes(i)
 			);
-			setSelectedAllCategories(prev => ({
+			setSelectedAllCategories((prev) => ({
 				...prev,
-				[category]: allSelected
+				[category]: allSelected,
 			}));
 		});
 		setSelectedFood(inventory);
@@ -39,7 +39,9 @@ const SelectFood = ({ inventory = {}, stepStage }) => {
 			}
 
 			// Add this check for all items selected
-			const allCategoryItems = foodList[category].items.map((i) => i.name);
+			const allCategoryItems = foodList[category].items.map(
+				(i) => i.name
+			);
 			const allSelected = allCategoryItems.every((i) =>
 				newFood[category].includes(i)
 			);
@@ -59,7 +61,7 @@ const SelectFood = ({ inventory = {}, stepStage }) => {
 				...new Set([...(combinedFood[category] || []), ...items]),
 			];
 		});
-		
+
 		// Check if initialInventory exists to determine if this is an update
 		if (inventory && Object.keys(inventory).length > 0) {
 			await update_inventory(combinedFood);

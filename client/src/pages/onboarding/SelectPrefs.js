@@ -3,7 +3,9 @@ import { set_preferences, update_preferences } from "apis/preferences";
 import prefList from "./pref_list";
 
 const SelectPrefs = ({ preferences = {}, stepStage }) => {
-	const [selectedPreferences, setSelectedPreferences] = useState(preferences || {});
+	const [selectedPreferences, setSelectedPreferences] = useState(
+		preferences || {}
+	);
 	const [userAddedItems, setUserAddedItems] = useState({});
 	const [newItemInputs, setNewItemInputs] = useState({});
 	const [selectedAllCategories, setSelectedAllCategories] = useState({});
@@ -14,13 +16,13 @@ const SelectPrefs = ({ preferences = {}, stepStage }) => {
 		}
 
 		Object.entries(prefList).forEach(([category, { items }]) => {
-			const allCategoryItems = items.map(i => i.name);
-			const allSelected = allCategoryItems.every(i => 
+			const allCategoryItems = items.map((i) => i.name);
+			const allSelected = allCategoryItems.every((i) =>
 				preferences[category]?.includes(i)
 			);
-			setSelectedAllCategories(prev => ({
+			setSelectedAllCategories((prev) => ({
 				...prev,
-				[category]: allSelected
+				[category]: allSelected,
 			}));
 		});
 		setSelectedPreferences(preferences);
@@ -63,7 +65,7 @@ const SelectPrefs = ({ preferences = {}, stepStage }) => {
 				]),
 			];
 		});
-		
+
 		// Check if initialPreferences exists to determine if this is an update
 		if (preferences && Object.keys(preferences).length > 0) {
 			await update_preferences(combinedPreferences);
