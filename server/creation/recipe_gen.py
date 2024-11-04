@@ -43,9 +43,10 @@ Please generate a recipe in the following JSON format:
         {{
             "item": string,
             "amount": float,
-            "unit": string, # tablespoon, milliliter, etc. # DONT ABBREVIATE
+            "unit": string, # Use the abbreviation, such as tsp, tbsp, fl oz, cup, gal, ml, l, m3, oz, lb, mg, g, kg, etc. If the amount is a whole number, use "count" as the unit.
+            "system": "metric"|"imperial",
             "unit_type": "volume"|"weight"|"count",
-            "notes": string
+            "notes": string|null
         }}
     ],
     "equipment_needed": [
