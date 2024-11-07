@@ -70,3 +70,35 @@ export const get_recipe = async (recipeId) => {
     
     return response.json();
 };
+
+export const save_recipe = async (recipeId) => {
+    const response = await fetch(`${apiUrl}/recipes/${recipeId}/save`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to save recipe");
+    }
+
+    return response.json();
+};
+
+export const remove_saved_recipe = async (recipeId) => {
+    const response = await fetch(`${apiUrl}/recipes/${recipeId}/save`, {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to remove recipe");
+    }
+
+    return response.json();
+};

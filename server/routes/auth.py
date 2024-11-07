@@ -86,6 +86,7 @@ async def google_auth(request: GoogleLoginRequest):
                 "email": email,
                 "created_at": datetime.datetime.now(datetime.UTC),
                 "onboarding_complete": False,
+                "hide_recipes": False,
             }
 
             user_id = await insert_user(user_obj)

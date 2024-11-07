@@ -4,7 +4,7 @@ import Header from "components/Header";
 import RecipeList from "../home/RecipeList";
 
 const Explore = () => {
-	const { recipes, loading, error } = useExploreRecipes();
+	const { recipes, loading, error, refetchRecipes } = useExploreRecipes();
 	const [searchTerm, setSearchTerm] = useState("");
 	const [selectedFilters, setSelectedFilters] = useState({
 		difficulty: "",
@@ -199,6 +199,7 @@ const Explore = () => {
 						loading={loading}
 						error={error}
 						rel="explore"
+						onRecipeUpdate={refetchRecipes}
 					/>
 				</div>
 			</div>

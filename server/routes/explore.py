@@ -1,7 +1,7 @@
 from fastapi import APIRouter, Request, HTTPException
 from fastapi.responses import JSONResponse
 from utils.decorators import token_required
-from database.db_find import find_all_recipes
+from database.db_find import find_all_public_recipes
 from utils.helpers import convertObjectIds
 
 router = APIRouter()
@@ -10,7 +10,7 @@ router = APIRouter()
 @token_required
 async def get_all_recipes(request: Request):
     try:
-        recipes = await find_all_recipes()
+        recipes = await find_all_public_recipes()
         
         if not recipes:
             return JSONResponse(content={"recipes": []}, status_code=200)

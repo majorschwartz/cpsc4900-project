@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { get_all_recipes } from "apis/explore";
 
 const useExploreRecipes = () => {
@@ -6,24 +6,26 @@ const useExploreRecipes = () => {
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 
-	useEffect(() => {
-		const fetchRecipes = async () => {
-			try {
-				const data = await get_all_recipes();
-				setRecipes(data.recipes);
-			} catch (error) {
-				setError("Error fetching recipes");
-			} finally {
-				setLoading(false);
-			}
-		};
-		fetchRecipes();
+	const fetchRecipes = useCallback(async () => {
+		try {
+			const data = await get_all_recipes();
+			setRecipes(data.recipes);
+		} catch (error) {
+			setError("Error fetching recipes");
+		} finally {
+			setLoading(false);
+		}
 	}, []);
+
+	useEffect(() => {
+		fetchRecipes();
+	}, [fetchRecipes]);
 
 	return {
 		recipes,
 		loading,
 		error,
+		refetchRecipes: fetchRecipes
 	};
 };
 

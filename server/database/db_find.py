@@ -35,7 +35,6 @@ async def find_inventory_by_user_id(user_id: str):
 
 async def find_recipes_by_user_id(user_id: str):
     exclude_fields = {
-        "users_id": 0,
         "recipe.prep_time": 0,
         "recipe.cook_time": 0,
         "recipe.servings": 0,
@@ -45,12 +44,25 @@ async def find_recipes_by_user_id(user_id: str):
         "recipe.nutrition": 0,
         "recipe.dietary_info": 0,
     }
-    result = (
+
+    created_recipes = (
         await recipe_collection.find({"creator_id": user_id}, exclude_fields)
         .sort("created_at", -1)
         .to_list(length=None)
     )
-    return result if result else None
+
+    saved_recipes = (
+        await recipe_collection.find(
+            {"creator_id": {"$ne": user_id}, "users_id": str(user_id)}, exclude_fields
+        )
+        .sort("created_at", -1)
+        .to_list(length=None)
+    )
+
+    return {
+        "created": created_recipes if created_recipes else [],
+        "saved": saved_recipes if saved_recipes else [],
+    }
 
 
 async def find_recipe_by_id(recipe_id: str):
@@ -60,7 +72,6 @@ async def find_recipe_by_id(recipe_id: str):
 
 async def find_all_recipes():
     exclude_fields = {
-        "users_id": 0,
         "recipe.prep_time": 0,
         "recipe.cook_time": 0,
         "recipe.servings": 0,
@@ -75,4 +86,32 @@ async def find_all_recipes():
         .sort("created_at", -1)
         .to_list(length=None)
     )
+    return result if result else None
+
+
+async def find_all_public_recipes():
+    # Find all recipes where either:
+    # 1. The creator doesn't have hide_recipes set to True
+    # 2. The creator has no hide_recipes field (backward compatibility)
+    pipeline = [
+        {
+            "$lookup": {
+                "from": "users",
+                "localField": "creator_id",
+                "foreignField": "_id",
+                "as": "creator",
+            }
+        },
+        {
+            "$match": {
+                "$or": [
+                    {"creator.hide_recipes": {"$ne": True}},
+                    {"creator.hide_recipes": {"$exists": False}},
+                ]
+            }
+        },
+        {"$project": {"creator": 0}},  # Remove the joined creator data
+    ]
+
+    result = await recipe_collection.aggregate(pipeline).to_list(None)
     return result if result else None
