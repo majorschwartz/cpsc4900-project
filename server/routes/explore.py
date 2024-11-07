@@ -16,6 +16,8 @@ async def get_all_recipes(request: Request):
             return JSONResponse(content={"recipes": []}, status_code=200)
             
         recipes = await convertObjectIds(recipes)
+        # Sort recipes by created_at in descending order (newest first)
+        recipes.sort(key=lambda x: x['created_at'], reverse=True)
         return JSONResponse(content={"recipes": recipes}, status_code=200)
         
     except Exception as e:

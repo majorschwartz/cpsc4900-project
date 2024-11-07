@@ -90,9 +90,6 @@ async def find_all_recipes():
 
 
 async def find_all_public_recipes():
-    # Find all recipes where either:
-    # 1. The creator doesn't have hide_recipes set to True
-    # 2. The creator has no hide_recipes field (backward compatibility)
     pipeline = [
         {
             "$lookup": {
@@ -123,6 +120,9 @@ async def find_all_public_recipes():
                 "recipe.dietary_info": 0,
             }
         },
+        {
+            "$sort": {"created_at": -1}  # Sort by created_at in descending order
+        }
     ]
 
     result = await recipe_collection.aggregate(pipeline).to_list(None)

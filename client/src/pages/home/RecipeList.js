@@ -151,7 +151,7 @@ const RecipeList = ({ recipes, loading, error, rel = null, onRecipeUpdate }) => 
 											key={index}
 											className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded"
 										>
-											{tag}
+											{tag.toLowerCase()}
 										</span>
 									))}
 									{tags.length > 3 && (

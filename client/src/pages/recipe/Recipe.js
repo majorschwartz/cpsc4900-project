@@ -43,6 +43,18 @@ const Recipe = () => {
             
             <div className="mb-12 bg-gray-50 p-6 rounded-lg shadow-sm">
                 <p className="text-gray-700 text-lg leading-relaxed">{recipe.description}</p>
+                {recipe.tags && recipe.tags.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                        {recipe.tags.map((tag, index) => (
+                            <span 
+                                key={index}
+                                className="px-3 py-1 bg-blue-100 text-blue-800 text-sm rounded-full"
+                            >
+                                {tag}
+                            </span>
+                        ))}
+                    </div>
+                )}
                 <div className="mt-6 grid grid-cols-3 gap-4">
                     <div className="bg-white p-4 rounded-lg text-center shadow-sm">
                         <span className="block text-sm text-gray-500 uppercase tracking-wide">Prep Time</span>
