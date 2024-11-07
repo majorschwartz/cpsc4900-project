@@ -5,7 +5,8 @@ import Header from "components/Header";
 
 const Profile = () => {
 	const navigate = useNavigate();
-	const { firstName, email, hideRecipes, loading, error, updateHideRecipes } = useUserData();
+	const { firstName, email, hideRecipes, loading, error, updateHideRecipes } =
+		useUserData();
 
 	const handlePreferencesClick = () => {
 		navigate("/preferences");
@@ -153,25 +154,34 @@ const Profile = () => {
 						</h3>
 						<div className="flex items-center justify-between">
 							<div>
-								<p className="text-gray-700">Hide Your Recipes</p>
+								<p className="text-gray-700">
+									Hide Your Recipes
+								</p>
 								<p className="text-sm text-gray-500">
-									When enabled, your recipes won't appear in the explore page
+									When enabled, your recipes won't appear in
+									the explore page
 								</p>
 							</div>
-							<button
-								onClick={handlePrivacyToggle}
-								className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
-									hideRecipes ? 'bg-blue-600' : 'bg-gray-200'
-								}`}
-								role="switch"
-								aria-checked={hideRecipes}
-							>
-								<span
-									className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-										hideRecipes ? 'translate-x-6' : 'translate-x-1'
+							{!loading && (
+								<button
+									onClick={handlePrivacyToggle}
+									className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 ${
+										hideRecipes
+											? "bg-blue-600"
+											: "bg-gray-200"
 									}`}
-								/>
-							</button>
+									role="switch"
+									aria-checked={hideRecipes}
+								>
+									<span
+										className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+											hideRecipes
+												? "translate-x-6"
+												: "translate-x-1"
+										}`}
+									/>
+								</button>
+							)}
 						</div>
 					</div>
 				</div>

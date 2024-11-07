@@ -17,7 +17,6 @@ const useUserData = () => {
                 throw new Error("Failed to fetch user data");
             }
             const data = await response.json();
-            console.log(data);
             setFirstName(data["first_name"]);
             setLastName(data["last_name"]);
             setEmail(data["email"]);

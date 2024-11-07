@@ -110,7 +110,19 @@ async def find_all_public_recipes():
                 ]
             }
         },
-        {"$project": {"creator": 0}},  # Remove the joined creator data
+        {
+            "$project": {
+                "creator": 0,  # Remove the joined creator data
+                "recipe.prep_time": 0,
+                "recipe.cook_time": 0,
+                "recipe.servings": 0,
+                "recipe.ingredients": 0,
+                "recipe.equipment_needed": 0,
+                "recipe.instructions": 0,
+                "recipe.nutrition": 0,
+                "recipe.dietary_info": 0,
+            }
+        },
     ]
 
     result = await recipe_collection.aggregate(pipeline).to_list(None)
