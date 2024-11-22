@@ -6,13 +6,23 @@ import Header from "components/Header";
 import { Navigate } from "react-router-dom";
 
 const Home = () => {
-	const { recipes, loading: recipesLoading, error: recipesError, refetchRecipes } = useUserRecipes();
-	const { onboardingComplete, firstName, loading: userLoading, error: userError } = useUserData();
+	const {
+		recipes,
+		loading: recipesLoading,
+		error: recipesError,
+		refetchRecipes,
+	} = useUserRecipes();
+	const {
+		onboardingComplete,
+		firstName,
+		loading: userLoading,
+		error: userError,
+	} = useUserData();
 
 	if (userError) {
-        localStorage.removeItem("token");
-        return <Navigate to="/auth" />;
-    }
+		localStorage.removeItem("token");
+		return <Navigate to="/auth" />;
+	}
 
 	if (!userLoading && !onboardingComplete) {
 		return <Navigate to="/onboarding" />;
@@ -56,6 +66,6 @@ const Home = () => {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Home;
