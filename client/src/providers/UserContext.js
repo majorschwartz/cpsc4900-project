@@ -31,7 +31,7 @@ export const UserProvider = ({ children }) => {
 		}
 		setIsLoggedIn(isValid);
 		setLoginChecked(true);
-	}, []);
+	}, [isLoggedIn]);
 
 	return (
 		<UserContext.Provider

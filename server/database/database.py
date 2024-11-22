@@ -11,7 +11,12 @@ if LOCAL:
     client = AsyncIOMotorClient(MONGO_URI_LOCAL)
     database = client[MONGO_DB_LOCAL]
 else:
-    client = AsyncIOMotorClient(MONGO_URI)
+    client = AsyncIOMotorClient(
+        MONGO_URI,
+        tls=True,
+        tlsAllowInvalidCertificates=False,
+        serverSelectionTimeoutMS=5000
+    )
     database = client[MONGO_DB]
 
 user_collection = database["users"]
